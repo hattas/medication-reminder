@@ -45,6 +45,8 @@ https://docs.oracle.com/javase/8/javase-clienttechnologies.htm (JavaFX Tutorial)
 
 https://docs.oracle.com/javase/tutorial/uiswing/index.html (Java Swing Tutorial --older way of creating GUI)
 
+https://help.github.com/articles/basic-writing-and-formatting-syntax/ (how to edit this README)
+
  
 
  
