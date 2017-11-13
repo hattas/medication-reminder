@@ -1,6 +1,5 @@
 # MedicationReminder
 #### Data Structures Group Project
-#### Page will be updated frequently. Please check for latest version.
 
 **Project Title:** Medication Reminder
 
