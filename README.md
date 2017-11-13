@@ -1,10 +1,10 @@
 # MedicationReminder
-### Data Structures Group Project
-### Page will be updated frequently. Please check for latest version.
+#### Data Structures Group Project
+#### Page will be updated frequently. Please check for latest version.
 
-Project Title: Medication Reminder
-Creators: Student Ideas
-Modified By: Ryan Osterberg and Praveen Madiraju
+**Project Title:** Medication Reminder
+**Creators:** Student Ideas
+**Modified By:** Ryan Osterberg and Praveen Madiraju
 
 ## Project Description
 
@@ -24,15 +24,15 @@ Team size for the projects should be two to three at most. Follow the key dates 
 
 ## Technology
 
-Java FX/Java Swing/Java Web Application or any programming language of the team’s choice.
+Java FX/Java Swing/Java Web Application or any programming language of the teamâ€™s choice.
 
 ## Key Dates and Deliverables
 
-##### Market Research and Mockup Design (Nov.10th)
+#### Market Research and Mockup Design (Nov.10th)
 
 Conduct market research of relevant products such as mobile apps or web applications that do similar things as the project. Survey the competition designs, and include the report of what is available out there and what features you can realistically implement by the end of this semester. Also, use a professional mock up generator to create sample mock-ups of your final project (see Useful Links section below).
 
-##### GUI Design with some features (Nov.20th)
+#### GUI Design with some features (Nov.20th)
 
 Write basic prototype of the application that displays the GUI. Either hard code the inputs such as medication history, reminders, etc or read them from a file and display on the GUI.
 
@@ -40,7 +40,7 @@ Write basic prototype of the application that displays the GUI. Either hard code
 
 https://moqups.com/ ( mock-up designer tool)
 
-https://balsamiq.com/ (mock-up designer tool – free 30 day trial)
+https://balsamiq.com/ (mock-up designer tool â€“ free 30 day trial)
 
 https://docs.oracle.com/javase/8/javase-clienttechnologies.htm (JavaFX Tutorial)
 
