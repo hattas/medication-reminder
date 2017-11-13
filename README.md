@@ -3,8 +3,8 @@
 #### Page will be updated frequently. Please check for latest version.
 
 **Project Title:** Medication Reminder
-**Creators:** Student Ideas
-**Modified By:** Ryan Osterberg and Praveen Madiraju
+
+**Creators:** John Hattas and Nathan Lang
 
 ## Project Description
 
