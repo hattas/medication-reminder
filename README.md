@@ -33,7 +33,21 @@ Conduct market research of relevant products such as mobile apps or web applicat
 
 #### GUI Design with some features (Nov.20th)
 
-Write basic prototype of the application that displays the GUI. Either hard code the inputs such as medication history, reminders, etc or read them from a file and display on the GUI.
+Write basic prototype of the application that displays the GUI. Either hard code the inputs such as medication history, reminders, etc or read them from a file and display on the GUI. Take screenshots of your GUI and include them in a report and upload your source code and the report.
+
+#### GUI Design with most features (Dec.4th)
+
+Write prototype of the application that displays the GUI with most of the functionality implemented.  Highlight the different data structures that you have used. They could be simple ArrayList, Queue, Stack, HashMap, etc from Java Collection Framework. . Take screenshots of your application and include them in a report and upload your source code and the report.
+
+#### Prototype Presentation (Dec.6th , Dec.8th)
+
+Include the screenshots of your application into a shared presentation at the following link. We will have presentations of your project during those two dates.
+
+https://docs.google.com/presentation/d/1eF_kJV_wcCfhyLKsLHeJOqGoCtslvSe_xpC0eRoOmKU/edit?usp=sharing
+
+#### Final Report (Dec.13th 11:59 PM)
+
+Your final report should include the application description, motivation, competing market research, and your prototype description. More details to be announced.
 
 ## Useful Links:
 
