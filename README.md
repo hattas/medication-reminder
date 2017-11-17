@@ -1,9 +1,14 @@
 # MedicationReminder
-#### Data Structures Group Project
+### Data Structures Group Project
 
 **Project Title:** Medication Reminder
 
 **Creators:** John Hattas and Nathan Lang
+
+### Quick Links
+[To Do List](TODO.md)
+
+[Main](src/application/Main.java)
 
 ## Project Description
 
