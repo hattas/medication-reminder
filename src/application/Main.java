@@ -35,7 +35,7 @@ public class Main extends Application {
 		try {
 			window = primaryStage;
 			
-			Label label1 = new Label("Home");
+			Label label1 = new Label("Friday, November 17");
 			button1 = new Button("My Medications");
 			button1.setOnAction(e -> window.setScene(scene2));
 			button3 = new Button("alert box");
@@ -57,6 +57,8 @@ public class Main extends Application {
 			StackPane layout2 = new StackPane();
 			layout2.getChildren().addAll(label2, button2);
 			scene2 = new Scene(layout2, 200, 150);
+			
+			scene1.getStylesheets().add("application/application.css");
 			
 			window.setScene(scene1);
 			window.setTitle("Medication Reminder");
