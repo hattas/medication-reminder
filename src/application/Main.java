@@ -46,22 +46,27 @@ public class Main extends Application {
 			tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
 			
-			Tab homeTab = new Tab("Home");
-			BorderPane borderPane1 = new BorderPane();
-			borderPane1.getChildren().addAll(new Button("test"));
+			// Home Tab
+			Tab homeTab = new Tab();
+			// add content
+			homeTab.setContent();
+
 			
+			// Medications Tab
 			Tab medTab = new Tab("Meds");
-			BorderPane borderPane2 = new BorderPane();
-			borderPane2.getChildren().addAll(new Button("test"));
+			// 
+			medTab.setContent();
+
 			
+			// History Log Tab
 			Tab logTab = new Tab("Log");
-			BorderPane borderPane3 = new BorderPane();
-			borderPane3.getChildren().addAll(new Button("test"));
+		
+			logTab.setContent();
+
 			
-			//Add some in borderPane
-			homeTab.setContent(borderPane1);
-			medTab.setContent(borderPane2);
-			logTab.setContent(borderPane3);
+			
+			
+			// add the three tabs to the tab pane.
 			tabPane.getTabs().addAll(homeTab, medTab, logTab);
 
 	        Scene scene = new Scene(tabPane, 1280, 720);
