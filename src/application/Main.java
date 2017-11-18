@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -39,27 +41,14 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {			
 			// main vertical layout
-			VBox mainLayout = new VBox(20);
+			TabPane tabPane = new TabPane();
+			Tab tab = new Tab("Main");
+			BorderPane borderPane = new BorderPane();
+			//Add some in borderPane
+			tab.setContent(borderPane);
 			
-			// top of screen, buttons to go to meds, home, or log
-			HBox buttonHeader = new HBox(100);
-			homeButton = new Button("Home");
-			homeButton.setId("tab-button");
-			
-			medsButton = new Button("Medications");
-			medsButton.setId("tab-button");
-			
-			logButton = new Button("History Log");
-			logButton.setId("tab-button");
 
-			buttonHeader.getChildren().addAll(homeButton, medsButton, logButton);			
-			buttonHeader.setAlignment(Pos.CENTER);			
-			mainLayout.getChildren().addAll(buttonHeader);
-			
-			
-			
-			
-	        Scene scene = new Scene(mainLayout, 1280, 720);
+	        Scene scene = new Scene(tabPane, 1280, 720);
 	        scene.getStylesheets().add("application/application.css");
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Medication Reminder");

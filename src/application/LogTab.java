@@ -1,5 +1,5 @@
 package application;
 
-public class HomeScene {
+public class LogTab {
 
 }
