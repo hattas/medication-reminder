@@ -11,7 +11,7 @@
 .root{
 	/*-fx-background-color: linear-gradient(#404040, #202020);*/
 	-fx-background-color: #303030;
-	-fx-font-size: 10pt;
+	-fx-font-size: 30pt;
 }
 .button{
 	-fx-text-fill: #ffffff;
@@ -41,7 +41,7 @@
 
 .tab-pane
 {
-    -fx-tab-min-width:400px;
+    -fx-tab-min-width:300px;
 }
 
 .tab{
@@ -61,7 +61,7 @@
 .tab .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #303030;
-    -fx-font-size: 15px;
+    -fx-font-size: 30px;
     -fx-font-weight: bold;
 }
 
