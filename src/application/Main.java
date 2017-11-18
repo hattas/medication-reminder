@@ -44,13 +44,13 @@ public class Main extends Application {
 			// top of screen, buttons to go to meds, home, or log
 			HBox buttonHeader = new HBox(100);
 			homeButton = new Button("Home");
-			homeButton.setId("main-button");
+			homeButton.setId("tab-button");
 			
 			medsButton = new Button("Medications");
-			medsButton.setId("main-button");
+			medsButton.setId("tab-button");
 			
 			logButton = new Button("History Log");
-			logButton.setId("main-button");
+			logButton.setId("tab-button");
 
 			buttonHeader.getChildren().addAll(homeButton, medsButton, logButton);			
 			buttonHeader.setAlignment(Pos.CENTER);			
