@@ -30,7 +30,6 @@ public class Main extends Application {
 	
 	Scene scene;
 	Button medsButton, homeButton, logButton;
-	Label dateLabel;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -42,54 +41,24 @@ public class Main extends Application {
 			// main vertical layout
 			VBox mainLayout = new VBox(20);
 			
-			dateLabel = new Label("Friday, November 17");
-			dateLabel.setStyle("-fx-font-size: 50pt;");
-			dateLabel.setMaxWidth(Double.MAX_VALUE);
+			// top of screen, buttons to go to meds, home, or log
+			HBox buttonHeader = new HBox(100);
+			homeButton = new Button("Home");
+			homeButton.setId("main-button");
 			
-			HBox threePanes = new HBox(200);
+			medsButton = new Button("Medications");
+			medsButton.setId("main-button");
 			
-			VBox medBox     = new VBox(20);
-			Label medLabel = new Label("My Medications");
-			medLabel.setId("label-header");
-			medBox.getChildren().add(medLabel);
-			
-			VBox homeBox    = new VBox(20);
-			Label homeLabel = new Label("Home");
-			homeLabel.setId("label-header");
-			homeBox.getChildren().add(homeLabel);
-			
-			VBox logBox     = new VBox(20);
-			Label logLabel = new Label("History Log");
-			logLabel.setId("label-header");
-			logBox.getChildren().add(logLabel);
+			logButton = new Button("History Log");
+			logButton.setId("main-button");
 
-			
-			// add buttons to medications pane
-			Button [] buttonArray = new Button[10];
-			for (int i = 0; i < buttonArray.length; i++)
-				buttonArray[i] = new Button("Medication Button " + i);
-			for (int i = 0; i < buttonArray.length; i++)
-				medBox.getChildren().addAll(buttonArray[i]);
-			
-			// add test buttons to home
-			Button [] buttonArray2 = new Button[10];
-			for (int i = 0; i < buttonArray2.length; i++)
-				buttonArray2[i] = new Button("Home Button " + i);
-			for (int i = 0; i < buttonArray2.length; i++)
-				homeBox.getChildren().addAll(buttonArray2[i]);
-			
-			// add test labels to 
-			Label [] labelArray = new Label[10];
-			for (int i = 0; i < labelArray.length; i++)
-				labelArray[i] = new Label("November " + (16-i) + ": you didnt take pills and died");
-			for (int i = 0; i < labelArray.length; i++)
-				logBox.getChildren().addAll(labelArray[i]);
-			
-			threePanes.getChildren().addAll(medBox, homeBox, logBox);
-			threePanes.setAlignment(Pos.CENTER);	
+			buttonHeader.getChildren().addAll(homeButton, medsButton, logButton);			
+			buttonHeader.setAlignment(Pos.CENTER);			
+			mainLayout.getChildren().addAll(buttonHeader);
 			
 			
-			mainLayout.getChildren().addAll(dateLabel, threePanes);
+			
+			
 	        Scene scene = new Scene(mainLayout, 1280, 720);
 	        scene.getStylesheets().add("application/application.css");
 			primaryStage.setScene(scene);

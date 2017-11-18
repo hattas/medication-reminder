@@ -31,6 +31,6 @@
     -fx-background-radius: 2;
 }
 
-#label-header{
-	-fx-font-size: 20pt;
+#main-button{
+	-fx-font-size: 40pt;
 }
