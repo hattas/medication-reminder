@@ -4,11 +4,15 @@ package application;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -18,13 +22,14 @@ import javafx.scene.layout.VBox;
  * main starts program
  * start method has bulk of code
  * 
+ * 
+ * choicebox = dropdown menu
  */
 
 public class Main extends Application {
 	
-	Stage window;
-	Scene scene1, scene2;
-	Button button1, button2, button3, button4;
+	Scene scene;
+	Button medsButton, homeButton, logButton;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -32,39 +37,37 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		try {
-			window = primaryStage;
+		try {			
+			// main vertical layout
+			VBox mainLayout = new VBox(20);
 			
-			Label label1 = new Label("Friday, November 17");
-			button1 = new Button("My Medications");
-			button1.setOnAction(e -> window.setScene(scene2));
-			button3 = new Button("alert box");
-			button3.setOnAction(e -> AlertBox.display("Medication Alert", "take ur meds"));
-			button4 = new Button("yes or no????");
-			button4.setOnAction(e -> {
-				boolean result = ConfirmBox.display("yes or no?", "are you sure");
-				System.out.println(result);
-			});
+			// top of screen, buttons to go to meds, home, or log
+			HBox buttonHeader = new HBox(100);
+			homeButton = new Button("Home");
+			homeButton.setStyle("-fx-font-size: 22; -fx-background-color: linear-gradient(#a5a5a5, #aaaaaa);");
 			
-			VBox layout1 = new VBox(20);
-			layout1.getChildren().addAll(label1, button1, button3, button4);
-			scene1 = new Scene(layout1, 400, 300);
+			medsButton = new Button("Medications");
+			medsButton.setStyle("-fx-font-size: 22;");
 			
-			Label label2 = new Label("My Medications");
-			button2 = new Button("Home");
-			button2.setOnAction(e -> window.setScene(scene1));
+			logButton = new Button("History Log");
+			logButton.setStyle("-fx-font-sze: 22;");
 			
-			StackPane layout2 = new StackPane();
-			layout2.getChildren().addAll(label2, button2);
-			scene2 = new Scene(layout2, 200, 150);
+			Separator separator = new Separator();
+			separator.setOrientation(Orientation.VERTICAL);
 			
-			scene1.getStylesheets().add("application/application.css");
-			
-			window.setScene(scene1);
-			window.setTitle("Medication Reminder");
-			window.show();
+			buttonHeader.getChildren().addAll(homeButton, medsButton, logButton);			
+			buttonHeader.setAlignment(Pos.CENTER);			
+			mainLayout.getChildren().addAll(buttonHeader, separator);
 			
 			
+			
+			
+	        Scene scene = new Scene(mainLayout, 1280, 720);
+	        scene.getStylesheets().add("application/application.css");
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Medication Reminder");
+			primaryStage.centerOnScreen();
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -1,14 +1,23 @@
 
 .root{
-	-fx-background-color: linear-gradient(#3b3b3b, #282828);
+	-fx-background-color: linear-gradient(#404040, #202020);
 	-fx-font-size: 10pt;
 }
 .button{
 	-fx-text-fill: #ffffff;
-	-fx-background-color: linear-gradient(#454545, #4f4f4f, #454545);
+	-fx-background-color: linear-gradient(#555555, #5a5a5a);
 	-fx-background-radius: 5;
 }
+.button:hover{
+	-fx-background-color: linear-gradient(#7a7a7a, #757575);
+}
+
 .label{
 	-fx-text-fill: #ffffff;
 	-fx-font-size: 30pt;
+}
+
+.separator{
+    -fx-background-color: #7a7a7a;
+    -fx-background-radius: 2;
 }
