@@ -49,11 +49,19 @@ public class Main extends Application {
 			HBox threePanes = new HBox(200);
 			
 			VBox medBox     = new VBox(20);
-			medBox.getChildren().add(new Label("My Medications"));
+			Label medLabel = new Label("My Medications");
+			medLabel.setId("label-header");
+			medBox.getChildren().add(medLabel);
+			
 			VBox homeBox    = new VBox(20);
-			homeBox.getChildren().add(new Label("Home"));
+			Label homeLabel = new Label("Home");
+			homeLabel.setId("label-header");
+			homeBox.getChildren().add(homeLabel);
+			
 			VBox logBox     = new VBox(20);
-			logBox.getChildren().add(new Label("History Log"));
+			Label logLabel = new Label("History Log");
+			logLabel.setId("label-header");
+			logBox.getChildren().add(logLabel);
 
 			
 			// add buttons to medications pane
@@ -62,13 +70,15 @@ public class Main extends Application {
 				buttonArray[i] = new Button("Medication Button " + i);
 			for (int i = 0; i < buttonArray.length; i++)
 				medBox.getChildren().addAll(buttonArray[i]);
-
+			
+			// add test buttons to home
 			Button [] buttonArray2 = new Button[10];
 			for (int i = 0; i < buttonArray2.length; i++)
 				buttonArray2[i] = new Button("Home Button " + i);
 			for (int i = 0; i < buttonArray2.length; i++)
 				homeBox.getChildren().addAll(buttonArray2[i]);
 			
+			// add test labels to 
 			Label [] labelArray = new Label[10];
 			for (int i = 0; i < labelArray.length; i++)
 				labelArray[i] = new Label("November " + (16-i) + ": you didnt take pills and died");

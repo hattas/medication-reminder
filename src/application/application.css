@@ -1,3 +1,12 @@
+/*
+ * root button etc are selectors
+ * 
+ * 
+ * https://www.youtube.com/watch?v=lVdtE2BNd88
+ * 
+ */
+
+
 
 .root{
 	/*-fx-background-color: linear-gradient(#404040, #202020);*/
@@ -20,4 +29,8 @@
 .separator{
     -fx-background-color: #7a7a7a;
     -fx-background-radius: 2;
+}
+
+#label-header{
+	-fx-font-size: 20pt;
 }
