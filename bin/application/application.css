@@ -1,6 +1,7 @@
 
 .root{
-	-fx-background-color: linear-gradient(#404040, #202020);
+	/*-fx-background-color: linear-gradient(#404040, #202020);*/
+	-fx-background-color: #303030;
 	-fx-font-size: 10pt;
 }
 .button{
@@ -14,7 +15,6 @@
 
 .label{
 	-fx-text-fill: #ffffff;
-	-fx-font-size: 30pt;
 }
 
 .separator{
