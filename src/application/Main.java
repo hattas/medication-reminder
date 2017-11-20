@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -56,20 +57,18 @@ public class Main extends Application {
 			//Creating a line object 
 		    Line line1 = new Line(); 
 		         
-		    //Setting the properties to a line
+		    // vertical divider line
 		    int dividerX = 200;
 		    line1.setStartX(dividerX); 
 		    line1.setStartY(0); 
 		    line1.setEndX(dividerX); 
-		    line1.setEndY(HEIGHT*5);
+		    line1.setEndY(HEIGHT);
 		    
-		    //Creating a line object 
+		    //top divider line
 		    Line line2 = new Line(); 
-		         
-		    //Setting the properties to a line
 		    line2.setStartX(dividerX); 
 		    line2.setStartY(HEIGHT / 10); 
-		    line2.setEndX(WIDTH*5); 
+		    line2.setEndX(WIDTH); 
 		    line2.setEndY(HEIGHT / 10); 
 			
 		    FileInputStream inputstream = new FileInputStream("med_bottles.png"); 
@@ -89,19 +88,36 @@ public class Main extends Application {
 	        text.setY(320);
 	        text.setFont(new Font(30));
 	        
-			
-		    //creating a Group object 
-			Group root = new Group(line1, line2, imageView, text);
-			
-			
-			Button button = new Button();
-			button.setText("Click me");
-			VBox layout = new VBox();
+	        Button settingsButton = new Button("settings");
+	        Button helpButton = new Button("?");
+	        HBox panelButtons = new HBox(20, settingsButton, helpButton);
+	        panelButtons.setAlignment(Pos.CENTER);
+	        
+	        
+	        // side vertical box
+	        VBox logo = new VBox(imageView, text, panelButtons);
+	        logo.setMinWidth(200);
+	        logo.setAlignment(Pos.CENTER);
+	        
+	        
+	       
+	        Button homeButton = new Button("Home");
+	        Button medButton = new Button("My Medications");
+	        Button addButton = new Button("Add Medication");
+	        Button logButton = new Button("History Log");
+	        HBox buttonRow = new HBox(20, homeButton, medButton, addButton, logButton);
+	        buttonRow.setAlignment(Pos.CENTER);
+	        Pane bufferPane = new Pane();
+	        bufferPane.setPrefHeight(10);
+	        VBox rightSide = new VBox(20, bufferPane, buttonRow, line2);
+	        
+	        HBox root = new HBox(logo, line1, rightSide);
+	        
 			
 			//Creating a Scene by passing the group object, height and width   
 	        Scene scene = new Scene(root, WIDTH, HEIGHT);
 	        
-	        scene.getStylesheets().add("application/application.css");
+	        //scene.getStylesheets().add("application/application.css");
 	        
 	        //Adding the scene to Stage 
 			primaryStage.setScene(scene);
@@ -111,6 +127,12 @@ public class Main extends Application {
 			
 			// centering the stage on screen.
 			primaryStage.centerOnScreen();
+			
+			// make it so user cannot resize window muhahaha
+			primaryStage.setMinWidth(WIDTH);
+			primaryStage.setMinHeight(HEIGHT);
+			primaryStage.setMaxWidth(WIDTH);
+			primaryStage.setMaxHeight(HEIGHT);
 			
 			//Displaying the contents of the stage 
 			primaryStage.show();
