@@ -1,6 +1,8 @@
 package application;
 	
 
+import java.io.FileInputStream;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,26 +18,33 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * javafx window is called the stage window=stage
  * content inside stage is scene
  * main starts program
  * start method has bulk of code
- * 
+ * stages have scenes, scenes have layout panes (containers)
+ * https://www.tutorialspoint.com/javafx/javafx_application.htm
  * 
  * choicebox = dropdown menu
  */
 
 public class Main extends Application {
 	
-	Scene scene;
-	Button medsButton, homeButton, logButton;
+	final static int WIDTH = 800;
+	final static int HEIGHT = 500;
+
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -42,63 +52,69 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		try {			
-			// main vertical layout
-			TabPane tabPane = new TabPane();
-			tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-
+		try {
+			//Creating a line object 
+		    Line line1 = new Line(); 
+		         
+		    //Setting the properties to a line
+		    int dividerX = 200;
+		    line1.setStartX(dividerX); 
+		    line1.setStartY(0); 
+		    line1.setEndX(dividerX); 
+		    line1.setEndY(HEIGHT*5);
+		    
+		    //Creating a line object 
+		    Line line2 = new Line(); 
+		         
+		    //Setting the properties to a line
+		    line2.setStartX(dividerX); 
+		    line2.setStartY(HEIGHT / 10); 
+		    line2.setEndX(WIDTH*5); 
+		    line2.setEndY(HEIGHT / 10); 
 			
-			// Home Tab
-			Tab homeTab = new Tab("Home");
-			Label dateLabel = new Label("Saturday, November 18");
-			Label med1 = new Label("Advil");
-			GridPane.setConstraints(med1, 0, 0);
-			Label time1 = new Label("11:00");
-			GridPane.setConstraints(time1, 1, 0);
-			Label med2 = new Label("Tylenol");
-			GridPane.setConstraints(med2, 0, 1);
-			Label time2 = new Label("1:00");
-			GridPane.setConstraints(time2, 1, 1);
-			Label med3 = new Label("Ibuprofen");
-			GridPane.setConstraints(med3, 0, 2);
-			Label time3 = new Label("4:00");
-			GridPane.setConstraints(time3, 1, 2);
-			
-			GridPane grid = new GridPane();
-	        grid.setPadding(new Insets(10, 10, 10, 10));
-	        grid.setVgap(8);
-	        grid.setHgap(10);
+		    FileInputStream inputstream = new FileInputStream("med_bottles.png"); 
+		    Image image = new Image(inputstream); 
+		    ImageView imageView = new ImageView();
+		    imageView.setImage(image);
+	        imageView.setFitWidth(160);
+	        imageView.setPreserveRatio(true);
+	        imageView.setSmooth(true);
+	        imageView.setCache(true);
+	        imageView.setX(20); 
+	        imageView.setY(100);
 	        
-	        grid.getChildren().addAll(med1, time1, med2, time2, med3, time3);
+	        Text text = new Text();      
+	        text.setText("Medication\nReminder"); 
+	        text.setX(20); 
+	        text.setY(320);
+	        text.setFont(new Font(30));
+	        
 			
-			VBox homeVbox = new VBox();
-			homeVbox.getChildren().addAll(dateLabel, grid);
-			homeTab.setContent(homeVbox);
-
-			
-			// Medications Tab
-			Tab medTab = new Tab("Medications");
-			// 
-			//medTab.setContent();
-
-			
-			// History Log Tab
-			Tab logTab = new Tab("History Log");
-		
-			//logTab.setContent();
-
+		    //creating a Group object 
+			Group root = new Group(line1, line2, imageView, text);
 			
 			
+			Button button = new Button();
+			button.setText("Click me");
+			VBox layout = new VBox();
 			
-			// add the three tabs to the tab pane.
-			tabPane.getTabs().addAll(homeTab, medTab, logTab);
-
-	        Scene scene = new Scene(tabPane, 1280, 720);
+			//Creating a Scene by passing the group object, height and width   
+	        Scene scene = new Scene(root, WIDTH, HEIGHT);
+	        
 	        scene.getStylesheets().add("application/application.css");
+	        
+	        //Adding the scene to Stage 
 			primaryStage.setScene(scene);
+			
+			//Setting the title to Stage. 
 			primaryStage.setTitle("Medication Reminder");
+			
+			// centering the stage on screen.
 			primaryStage.centerOnScreen();
+			
+			//Displaying the contents of the stage 
 			primaryStage.show();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
