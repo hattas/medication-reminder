@@ -8,7 +8,7 @@
 
 .root{
 	-fx-background-color: #303030;
-	-fx-font-size: 15pt;
+	-fx-font-size: 10pt;
 }
 .scroll-pane > .viewport {
    -fx-background-color: #303030;
@@ -64,4 +64,8 @@
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
      -fx-border-width: 0;
+}
+
+.line{
+	-fx-stroke: #ffffff;
 }

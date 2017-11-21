@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/med_bottles.png" />
+                  <Image url="@../images/med_bottles_blue.png" />
                </image></ImageView>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Medication&#10;Reminder" textAlignment="CENTER">
                <font>
@@ -59,9 +59,9 @@
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                           </columnConstraints>
                           <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
                               <Label text="Advil" />
