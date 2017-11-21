@@ -5,10 +5,17 @@
 
 **Creators:** John Hattas and Nathan Lang
 
-### Quick Links
+## Quick Links
 [To Do List](TODO.md)
 
 [Main](src/application/Main.java)
+
+[How to edit this README](https://help.github.com/articles/basic-writing-and-formatting-syntax/)
+
+### JavaFX tutorials
+[Good intro with lots of code examples](http://tutorials.jenkov.com/javafx/index.html)
+
+[Easy to follow video tutorials](https://www.youtube.com/watch?v=FLkOX4Eez6o&list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG)
 
 ## Project Description
 
@@ -32,11 +39,11 @@ Java FX/Java Swing/Java Web Application or any programming language of the teamâ
 
 ## Key Dates and Deliverables
 
-#### Market Research and Mockup Design (Nov.10th)
+#### Market Research and Mockup Design (Nov.10th) :white_check_mark:
 
 Conduct market research of relevant products such as mobile apps or web applications that do similar things as the project. Survey the competition designs, and include the report of what is available out there and what features you can realistically implement by the end of this semester. Also, use a professional mock up generator to create sample mock-ups of your final project (see Useful Links section below).
 
-#### GUI Design with some features (Nov.20th)
+#### GUI Design with some features (Nov.20th) :white_check_mark:
 
 Write basic prototype of the application that displays the GUI. Either hard code the inputs such as medication history, reminders, etc or read them from a file and display on the GUI. Take screenshots of your GUI and include them in a report and upload your source code and the report.
 
@@ -54,7 +61,7 @@ https://docs.google.com/presentation/d/1eF_kJV_wcCfhyLKsLHeJOqGoCtslvSe_xpC0eRoO
 
 Your final report should include the application description, motivation, competing market research, and your prototype description. More details to be announced.
 
-## Useful Links:
+## More Links:
 
 https://moqups.com/ ( mock-up designer tool)
 
@@ -66,7 +73,7 @@ https://docs.oracle.com/javase/tutorial/uiswing/index.html (Java Swing Tutorial 
 
 https://help.github.com/articles/basic-writing-and-formatting-syntax/ (how to edit this README)
 
-## Git Tips and Trix
+## Git Tips
 - use `git clone https://gitlab.mscs.mu.edu/rthomas/stocks.git` to download repository
 
 - once you have made changes to files, use `git add <filename>` to add files to be committed, i.e. `git add executor.py MovingAverageModel.py`
