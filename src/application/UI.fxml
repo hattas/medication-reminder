@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
@@ -31,18 +32,62 @@
          </children>
       </VBox>
       <Line endX="200.0" endY="500.0" startX="200.0" />
-      <VBox minHeight="-Infinity" minWidth="-Infinity">
-         <children>
-            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="50.0" prefWidth="600.0" spacing="50.0">
-               <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Home" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="My Medications" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Add medication" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="History Log" />
-               </children>
-            </HBox>
-            <Line endX="600.0" />
-         </children>
-      </VBox>
+      <TabPane prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Home">
+               <content>
+                  <ScrollPane />
+               </content></Tab>
+          <Tab text="My Medications">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+               </content></Tab>
+          <Tab text="Add Medications">
+               <content>
+                  <VBox>
+                     <children>
+                        <GridPane prefHeight="536.0" prefWidth="600.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Name" />
+                              <Label text="Dose" GridPane.rowIndex="1" />
+                              <Label text="How often?" GridPane.rowIndex="2" />
+                              <Label text="What time?" GridPane.rowIndex="3" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField promptText="name of medication" GridPane.columnIndex="1" />
+                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextField promptText="Strength" />
+                                    <TextField promptText="How many" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </content></Tab>
+          <Tab text="History Log">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" />
+               </content></Tab>
+        </tabs>
+      </TabPane>
    </children>
 </HBox>
