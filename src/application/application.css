@@ -8,7 +8,7 @@
 
 .root{
 	-fx-background-color: #303030;
-	-fx-font-size: 10pt;
+	-fx-font-size: 13pt;
 }
 .scroll-pane > .viewport {
    -fx-background-color: #303030;
@@ -20,6 +20,17 @@
 }
 .button:hover{
 	-fx-background-color: linear-gradient(#7a7a7a, #757575);
+}
+
+#table-header {
+	-fx-font-size: 16pt;
+	-fx-font-weight: bold
+}
+#taken {
+	-fx-text-fill: rgb(0,255,0);
+}
+#not-taken {
+	-fx-text-fill: rgb(255,0,0);
 }
 
 .label{

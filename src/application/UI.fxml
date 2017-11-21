@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
@@ -10,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0">
          <children>
@@ -25,8 +27,8 @@
             <Line endX="150.0" />
             <HBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" text="settings" />
-                  <Button mnemonicParsing="false" text="help" />
+                  <Button mnemonicParsing="false" text="Settings" />
+                  <Button mnemonicParsing="false" text="Help" />
                </children>
             </HBox>
          </children>
@@ -36,7 +38,7 @@
         <tabs>
           <Tab text="Home">
                <content>
-                  <ScrollPane>
+                  <ScrollPane hbarPolicy="NEVER">
                      <content>
                         <VBox>
                            <children>
@@ -45,7 +47,45 @@
                                     <Font size="48.0" />
                                  </font>
                               </Label>
+                              <Label text="11:11 PM">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets bottom="30.0" />
+                                 </padding>
+                              </Label>
+                              <GridPane prefWidth="540.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label id="table-header" text="Medication" />
+                                    <Label text="Tylenol" GridPane.rowIndex="1" />
+                                    <Label text="Advil" GridPane.rowIndex="2" />
+                                    <Label id="table-header" text="Time" GridPane.columnIndex="1" />
+                                    <Label text="9:00 PM" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label text="3:00 PM" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label id="table-header" text="Status" GridPane.columnIndex="2" />
+                                    <Label id="not-taken" text="Not Taken" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label id="taken" text="Taken" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label text="Ibuprofen" GridPane.rowIndex="3" />
+                                    <Label text="8:00 AM" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Label id="taken" text="Taken" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                 </children>
+                              </GridPane>
                            </children>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+                           </padding>
                         </VBox>
                      </content></ScrollPane>
                </content></Tab>
@@ -53,40 +93,52 @@
                <content>
                   <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="root">
                      <content>
-                        <GridPane prefWidth="600.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
-                          </rowConstraints>
+                        <VBox>
                            <children>
-                              <Label text="Advil" />
-                              <Label text="Tylenol" GridPane.rowIndex="1" />
-                              <Label text="Ibuprofen" GridPane.rowIndex="2" />
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1">
+                              <Label text="My Medications">
+                                 <font>
+                                    <Font size="48.0" />
+                                 </font>
+                              </Label>
+                              <GridPane prefWidth="540.0">
                                  <children>
-                                    <Button mnemonicParsing="false" text="Edit" />
-                                    <Button mnemonicParsing="false" text="Delete" />
+                                    <Label text="Advil" />
+                                    <Label text="Tylenol" GridPane.rowIndex="1" />
+                                    <Label text="Ibuprofen" GridPane.rowIndex="2" />
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Edit" />
+                                          <Button mnemonicParsing="false" text="Delete" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Edit" />
+                                          <Button mnemonicParsing="false" text="Delete" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Edit" />
+                                          <Button mnemonicParsing="false" text="Delete" />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Edit" />
-                                    <Button mnemonicParsing="false" text="Delete" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <children>
-                                    <Button mnemonicParsing="false" text="Edit" />
-                                    <Button mnemonicParsing="false" text="Delete" />
-                                 </children>
-                              </HBox>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="60" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
                            </children>
-                        </GridPane>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+                           </padding>
+                        </VBox>
                      </content>
                   </ScrollPane>
                </content></Tab>
@@ -94,6 +146,11 @@
                <content>
                   <VBox>
                      <children>
+                        <Label text="Add Medication:">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
                         <GridPane prefHeight="536.0" prefWidth="600.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -112,7 +169,7 @@
                               <Label text="What time?" GridPane.rowIndex="3" />
                               <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <TextField promptText="name of medication" GridPane.columnIndex="1" />
+                              <TextField promptText="Name of Medication" GridPane.columnIndex="1" />
                               <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -127,46 +184,67 @@
                                  </children>
                               </GridPane>
                            </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </GridPane>
                      </children>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+                     </padding>
                   </VBox>
                </content></Tab>
           <Tab text="History Log">
                <content>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="158.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" prefWidth="442.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
+                  <VBox>
                      <children>
-                        <Label text="11/20/18" />
-                        <Label text="11/20/18" GridPane.rowIndex="1" />
-                        <Label text="11/20/18" GridPane.rowIndex="2" />
-                        <Label text="11/20/18" GridPane.rowIndex="3" />
-                        <Label text="11/20/18" GridPane.rowIndex="4" />
-                        <Label text="11/20/18" GridPane.rowIndex="5" />
-                        <Label text="11/20/18" GridPane.rowIndex="6" />
-                        <Label text="11/20/18" GridPane.rowIndex="7" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label text="History Log">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <GridPane prefWidth="540.0">
+                           <children>
+                              <Label text="11/20/18" />
+                              <Label text="11/19/18" GridPane.rowIndex="1" />
+                              <Label text="11/18/18" GridPane.rowIndex="2" />
+                              <Label text="11/17/18" GridPane.rowIndex="3" />
+                              <Label text="11/16/18" GridPane.rowIndex="4" />
+                              <Label text="11/15/18" GridPane.rowIndex="5" />
+                              <Label text="11/14/18" GridPane.rowIndex="6" />
+                              <Label text="11/13/18" GridPane.rowIndex="7" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                           </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="158.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" prefWidth="442.0" />
+                           </columnConstraints>
+                           <padding>
+                              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                           </padding>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                        </GridPane>
                      </children>
-                  </GridPane>
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+                     </padding>
+                  </VBox>
                </content></Tab>
         </tabs>
       </TabPane>
