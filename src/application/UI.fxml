@@ -170,19 +170,12 @@
                               <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <TextField promptText="Name of Medication" GridPane.columnIndex="1" />
-                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
+                                    <TextField promptText="How many" />
                                     <TextField promptText="Strength" />
-                                    <TextField promptText="How many" GridPane.columnIndex="1" />
                                  </children>
-                              </GridPane>
+                              </HBox>
                            </children>
                            <VBox.margin>
                               <Insets />
@@ -205,14 +198,14 @@
                         </Label>
                         <GridPane prefWidth="540.0">
                            <children>
-                              <Label text="11/20/18" />
-                              <Label text="11/19/18" GridPane.rowIndex="1" />
-                              <Label text="11/18/18" GridPane.rowIndex="2" />
-                              <Label text="11/17/18" GridPane.rowIndex="3" />
-                              <Label text="11/16/18" GridPane.rowIndex="4" />
-                              <Label text="11/15/18" GridPane.rowIndex="5" />
-                              <Label text="11/14/18" GridPane.rowIndex="6" />
-                              <Label text="11/13/18" GridPane.rowIndex="7" />
+                              <Label text="11/20/17" />
+                              <Label text="11/19/17" GridPane.rowIndex="1" />
+                              <Label text="11/18/17" GridPane.rowIndex="2" />
+                              <Label text="11/17/17" GridPane.rowIndex="3" />
+                              <Label text="11/16/17" GridPane.rowIndex="4" />
+                              <Label text="11/15/17" GridPane.rowIndex="5" />
+                              <Label text="11/14/17" GridPane.rowIndex="6" />
+                              <Label text="11/13/17" GridPane.rowIndex="7" />
                               <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" />
                               <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Took advil at 1:00 pm" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -247,6 +240,9 @@
                   </VBox>
                </content></Tab>
         </tabs>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </TabPane>
    </children>
 </HBox>

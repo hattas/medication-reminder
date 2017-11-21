@@ -42,7 +42,7 @@
 }
 
 .tab-pane{
-    -fx-tab-min-width:100px;
+    -fx-tab-min-width:110px;
 }
 
 .tab-pane .tab{
@@ -57,7 +57,7 @@
 .tab .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #999999;
-    -fx-font-size: 15px;
+    -fx-font-size: 17px;
     -fx-font-weight: bold;
 }
 
@@ -80,3 +80,18 @@
 .line{
 	-fx-stroke: #ffffff;
 }
+
+.text-field {
+    -fx-background-color: #eeeeee;
+    -fx-prompt-text-fill: #666666;
+}
+
+.text-field:focused {
+    -fx-background-color: #ffffff;
+}
+
+.combo-box {
+	-fx-background-color: #eeeeee;
+}
+
+
