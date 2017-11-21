@@ -7,9 +7,11 @@
  */
 
 .root{
-	/*-fx-background-color: linear-gradient(#404040, #202020);*/
 	-fx-background-color: #303030;
-	-fx-font-size: 30pt;
+	-fx-font-size: 15pt;
+}
+.scroll-pane > .viewport {
+   -fx-background-color: #303030;
 }
 .button{
 	-fx-text-fill: #ffffff;
@@ -24,11 +26,42 @@
 	-fx-text-fill: #ffffff;
 }
 
-.separator{
-    -fx-background-color: #7a7a7a;
-    -fx-background-radius: 2;
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
 }
 
-#tab-button{
-	-fx-font-size: 30pt;
+.tab-pane{
+    -fx-tab-min-width:100px;
+}
+
+.tab-pane .tab{
+    -fx-background-color: #303030;
+
+}
+
+.tab-pane .tab:selected{
+    -fx-background-color: #303030;
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #999999;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #56b3ff;
+}
+
+.tab:selected:hover .tab-label{
+	-fx-text-fill: #9bd2ff;
+}
+.tab:hover .tab-label{
+	-fx-text-fill: #ffffff;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+     -fx-border-width: 0;
 }
