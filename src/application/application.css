@@ -36,7 +36,7 @@
 }
 
 .tab-pane{
-    -fx-tab-min-width:110px;
+    -fx-tab-min-width:170px;
 }
 
 .tab-pane .tab{
@@ -87,5 +87,29 @@
 .combo-box {
 	-fx-background-color: #eeeeee;
 }
+
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #505050;
+    -fx-border-color: #a0a0a0
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+}
+
 
 
