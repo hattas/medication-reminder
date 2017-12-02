@@ -12,19 +12,30 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0">
+      <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/med_bottles_blue.png" />
-               </image></ImageView>
+               </image>
+            </ImageView>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Medication&#10;Reminder" textAlignment="CENTER">
                <font>
                   <Font size="30.0" />
-               </font></Label>
-            <Line endX="150.0" />
+               </font>
+            </Label>
+            <Line endX="150.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#303030" />
+                        <Stop color="#a0a0a0" offset=".5" />
+                        <Stop color="#303030" offset="1" />
+                     </stops>
+                  </LinearGradient>
+               </stroke></Line>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                <children>
                   <Button mnemonicParsing="false" text="Settings" />
@@ -33,21 +44,20 @@
             </HBox>
          </children>
       </VBox>
-      <Line endX="200.0" endY="500.0" startX="200.0" />
-      <TabPane prefHeight="500.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Home">
+      <TabPane layoutX="30.0" layoutY="30.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <tabs>
+            <Tab text="Home">
                <content>
                   <ScrollPane hbarPolicy="NEVER">
                      <content>
                         <VBox>
                            <children>
-                              <Label text="Monday, November 20">
+                              <Label text="Saturday, December 2">
                                  <font>
                                     <Font size="48.0" />
                                  </font>
                               </Label>
-                              <Label text="11:11 PM">
+                              <Label text="6:43 PM">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -56,17 +66,6 @@
                                  </padding>
                               </Label>
                               <GridPane prefWidth="540.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
                                  <children>
                                     <Label id="table-header" text="Medication" />
                                     <Label text="Tylenol" GridPane.rowIndex="1" />
@@ -81,17 +80,30 @@
                                     <Label text="8:00 AM" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Label id="taken" text="Taken" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                                  </children>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
                               </GridPane>
                            </children>
                            <padding>
                               <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
                            </padding>
                         </VBox>
-                     </content></ScrollPane>
-               </content></Tab>
-          <Tab text="My Medications">
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+            <Tab text="My Medications">
                <content>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="root">
+                  <ScrollPane hbarPolicy="NEVER" styleClass="root">
                      <content>
                         <VBox>
                            <children>
@@ -100,7 +112,7 @@
                                     <Font size="48.0" />
                                  </font>
                               </Label>
-                              <GridPane prefWidth="540.0">
+                              <GridPane prefWidth="539.0">
                                  <children>
                                     <Label text="Advil" />
                                     <Label text="Tylenol" GridPane.rowIndex="1" />
@@ -141,8 +153,9 @@
                         </VBox>
                      </content>
                   </ScrollPane>
-               </content></Tab>
-          <Tab text="Add Medications">
+               </content>
+            </Tab>
+            <Tab text="Add Medications">
                <content>
                   <VBox>
                      <children>
@@ -152,16 +165,6 @@
                            </font>
                         </Label>
                         <GridPane prefHeight="536.0" prefWidth="600.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
                            <children>
                               <Label text="Name" />
                               <Label text="Dose" GridPane.rowIndex="1" />
@@ -177,6 +180,16 @@
                                  </children>
                               </HBox>
                            </children>
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -186,8 +199,9 @@
                         <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
                      </padding>
                   </VBox>
-               </content></Tab>
-          <Tab text="History Log">
+               </content>
+            </Tab>
+            <Tab text="History Log">
                <content>
                   <VBox>
                      <children>
@@ -238,11 +252,30 @@
                         <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
                      </padding>
                   </VBox>
-               </content></Tab>
-        </tabs>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
+               </content>
+            </Tab>
+         </tabs>
       </TabPane>
+      <Line endY="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+         <stroke>
+             <LinearGradient endX="1.0" endY="1.0">
+                <stops>
+                   <Stop color="#303030" />
+                   <Stop color="#a0a0a0" offset=".5" />
+                   <Stop color="#303030" offset="1" />
+                </stops>
+             </LinearGradient>
+          </stroke></Line>
+      <Line endX="600.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <stroke>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#303030" />
+                  <Stop color="#a0a0a0" offset=".5" />
+                  <Stop color="#303030" offset="1" />
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
    </children>
-</HBox>
+</AnchorPane>
