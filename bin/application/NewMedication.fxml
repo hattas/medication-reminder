@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewMedicationController">
    <children>
       <Label text="Add Medication" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -30,16 +29,16 @@
             <Label text="Dose:" GridPane.rowIndex="1" />
             <Label text="Time of day:" GridPane.rowIndex="2" />
             <Label text="How often?" GridPane.rowIndex="3" />
-            <TextField minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" />
-            <TextField minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addNameField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" />
+            <TextField fx:id="addDoseField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="addTimeField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="addFrequencyField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button mnemonicParsing="false" text="Add" />
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClick" text="Add" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
          </children>
       </HBox>
    </children>
