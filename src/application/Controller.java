@@ -2,6 +2,8 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -130,23 +132,34 @@ public class Controller implements Initializable {
     
     /**
      * allows medications to be deleted.
-     * @throws FileNotFoundException 
+     * @throws IOException 
      */
     @FXML
-    public void deleteButtonClick() throws FileNotFoundException {
-    	ObservableList<Medication> selectedRow, allMedications;
+    public void deleteButtonClick() throws IOException {
+    	ObservableList<Medication> allMedications;
     	allMedications = medicationTable.getItems();
-    	selectedRow = medicationTable.getSelectionModel().getSelectedItems();
-    	allMedications.remove(selectedRow.get(0));
+    	Medication removedMedication = medicationTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(removedMedication);
+    	rewriteMedications(allMedications);
     	
-    	// update today view
-
+    	// update home tab tableview
+    	homeTable.getItems().clear();//TODO maybe delete
 		homeTable.setItems(getTodaysMedications());
 		homeTable.getSortOrder().add(colHomeTime);
 
     }
     
-    /**
+    private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
+		// TODO Auto-generated method stub
+    	File newFile = new File("src\\library\\medications.txt");
+    	FileWriter writer = new FileWriter(newFile, false);
+    	for (Medication medication : allMedications) {
+    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
+    	}
+    	writer.close();
+	}
+
+	/**
      * creates pop up to add new medication!
      */
     @FXML
