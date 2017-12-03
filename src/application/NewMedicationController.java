@@ -6,7 +6,8 @@ import javafx.stage.Stage;
 
 public class NewMedicationController {
 	
-	
+	@FXML
+    private Button addButton;
 	@FXML
     private Button cancelButton;
 	

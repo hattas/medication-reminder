@@ -129,16 +129,68 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Event for editing cells.
+     * Event for editing cells
+     * @throws IOException 
      */
-    public void changeMyNameCellEvent(CellEditEvent editedCell) {
+    public void changeMyNameCellEvent(CellEditEvent editedCell) throws IOException {
+    	ObservableList<Medication> allMedications = medicationTable.getItems();
     	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(medicationSelected);
     	medicationSelected.setName(editedCell.getNewValue().toString());
+    	allMedications.add(medicationSelected);
+    	rewriteMedications(allMedications);
+    		
+    	medicationTable.setItems(getMedications());
+    	medicationTable.getSortOrder().add(colMyName);
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);	
+    }
+    
+    public void changeMyTimeCellEvent(CellEditEvent editedCell) throws IOException {
+    	ObservableList<Medication> allMedications = medicationTable.getItems();
+    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(medicationSelected);
+    	medicationSelected.setTime(editedCell.getNewValue().toString());
+    	allMedications.add(medicationSelected);
+    	rewriteMedications(allMedications);
+    	
+    	medicationTable.setItems(getMedications());
+    	medicationTable.getSortOrder().add(colMyName);
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);	
+    }
+    
+    public void changeMyDoseCellEvent(CellEditEvent editedCell) throws IOException {
+    	ObservableList<Medication> allMedications = medicationTable.getItems();
+    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(medicationSelected);
+    	medicationSelected.setDose(editedCell.getNewValue().toString());
+    	allMedications.add(medicationSelected);
+    	rewriteMedications(allMedications);
+    	   	
+    	medicationTable.setItems(getMedications());
+    	medicationTable.getSortOrder().add(colMyName);
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);	
+    }
+    
+    public void changeMyFrequencyCellEvent(CellEditEvent editedCell) throws IOException {
+    	ObservableList<Medication> allMedications = medicationTable.getItems();
+    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(medicationSelected);
+    	medicationSelected.setFrequency(editedCell.getNewValue().toString());
+    	allMedications.add(medicationSelected);
+    	rewriteMedications(allMedications);
+    	
+    	medicationTable.setItems(getMedications());
+    	medicationTable.getSortOrder().add(colMyName);
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);	
     }
     
     /**
      * allows medications to be deleted.
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     public void deleteButtonClick() throws IOException {
@@ -151,7 +203,6 @@ public class Controller implements Initializable {
     	// update home tab tableview
 		homeTable.setItems(getTodaysMedications());
 		homeTable.getSortOrder().add(colHomeTime);
-
     }
     
     private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
@@ -172,7 +223,7 @@ public class Controller implements Initializable {
     private void newButtonClick() throws IOException {
     	Parent root = FXMLLoader.load(getClass().getResource("NewMedication.fxml"));    
 	    Scene scene = new Scene(root);
-	    scene.getStylesheets().add("application/MedicationReminder.css");
+	    scene.getStylesheets().add("application/Main.css");
 	    Stage stage = new Stage();
 	    stage.setTitle("Add Medication");
 	    stage.setScene(scene);

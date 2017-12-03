@@ -98,9 +98,9 @@
     					   </placeholder>
                            <columns>
                               <TableColumn fx:id="colMyName" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Name" />
-                              <TableColumn fx:id="colMyTime" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Time" />
-                              <TableColumn fx:id="colMyDose" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Dose" />
-                              <TableColumn fx:id="colMyFrequency" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Frequency" />
+                              <TableColumn fx:id="colMyTime" minWidth="140.0" onEditCommit="#changeMyTimeCellEvent" prefWidth="140.0" text="Time" />
+                              <TableColumn fx:id="colMyDose" minWidth="140.0" onEditCommit="#changeMyDoseCellEvent" prefWidth="140.0" text="Dose" />
+                              <TableColumn fx:id="colMyFrequency" minWidth="140.0" onEditCommit="#changeMyFrequencyCellEvent" prefWidth="140.0" text="Frequency" />
                            </columns>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" />

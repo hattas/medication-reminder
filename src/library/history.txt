@@ -1,1 +1,3 @@
-add history...
+12/1/17;12:00;Advil
+12/2/17:4:00;Ibuprofen
+12/2/17;17:00;Tylenol
