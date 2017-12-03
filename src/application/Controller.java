@@ -181,7 +181,7 @@ public class Controller implements Initializable {
     	medicationSelected.setFrequency(editedCell.getNewValue().toString());
     	allMedications.add(medicationSelected);
     	rewriteMedications(allMedications);
-    	
+    	  	
     	medicationTable.setItems(getMedications());
     	medicationTable.getSortOrder().add(colMyName);
     	homeTable.setItems(getTodaysMedications());
