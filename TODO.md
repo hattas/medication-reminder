@@ -15,3 +15,12 @@
 - [ ] date
 - [ ] time
 - [ ] component functionality :dizzy_face:
+
+
+## updated
+- make home table only show todays meds
+- make add popup add to med list and update home and add tables
+- populate history table  make button clear history file and repopulate tableview
+- build alarm system
+  - timestamp and add to history
+  - taken vs not taken on home screen
