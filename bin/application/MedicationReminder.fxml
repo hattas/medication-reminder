@@ -18,7 +18,7 @@
          <children>
             <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/med_bottles_blue.png" />
+                  <Image url="@../library/med_bottles_blue.png" />
                </image>
             </ImageView>
             <Label alignment="CENTER" contentDisplay="CENTER" text="Medication&#10;Reminder" textAlignment="CENTER">
@@ -61,6 +61,9 @@
                            </font>
                         </Label>
                         <TableView fx:id="homeTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                          <placeholder>
+        						<Label text="You have no medications to take today." />
+    					   </placeholder>
                           <columns>
                               <TableColumn fx:id="colHomeName" minWidth="150" prefWidth="150.0" text="Name" />
                               <TableColumn fx:id="colHomeTime" minWidth="150" prefWidth="150.0" text="Time" />
@@ -86,11 +89,13 @@
                         <HBox alignment="CENTER" prefHeight="100.0" spacing="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
                            <children>
                               <Button fx:id="newButton" mnemonicParsing="false" onAction="#newButtonClick" text="New" />
-                              <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonClick" text="Edit" />
                               <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClick" text="Delete" />
                            </children>
                         </HBox>
                         <TableView fx:id="medicationTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                           <placeholder>
+        						<Label text="You have no medications. Click new to add one." />
+    					   </placeholder>
                            <columns>
                               <TableColumn fx:id="colMyName" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Name" />
                               <TableColumn fx:id="colMyTime" minWidth="140.0" prefWidth="140.0" text="Time" />
@@ -114,7 +119,15 @@
                               <Font size="50.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="logTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" spacing="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="Clear History" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="logTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                          <placeholder>
+        						<Label text="History will be visible once you take your first medication." />
+    					   </placeholder>
                           <columns>
                             <TableColumn fx:id="colLogName" minWidth="150.0" prefWidth="150.0" text="Date" />
                             <TableColumn fx:id="colLogTime" minWidth="150.0" prefWidth="150.0" text="Time" />

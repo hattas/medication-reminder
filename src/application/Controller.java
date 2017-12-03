@@ -1,7 +1,11 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -53,7 +57,11 @@ public class Controller implements Initializable {
 		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
 		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
 		
-		medicationTable.setItems(getMedications());
+		try {
+			medicationTable.setItems(getMedications());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		// make columns editable
 		medicationTable.setEditable(true);
@@ -65,38 +73,59 @@ public class Controller implements Initializable {
 		System.out.println("Done initializing.");
 	}
     
-    private ObservableList<Medication> getMedications() {
+    /** 
+     * @return List of medications for My Medications page from file.
+     * @throws FileNotFoundException 
+     */
+    private ObservableList<Medication> getMedications() throws FileNotFoundException {
+    	ObservableList<Medication> medications = FXCollections.observableArrayList();
+    	Scanner scanner = new Scanner(new File("src\\library\\medications.txt"));
+    	while (scanner.hasNextLine()) {
+    		String[] nextLine = scanner.nextLine().split(";");
+    		medications.add(new Medication(nextLine[0],nextLine[1],nextLine[2],nextLine[3]));
+    	}
+    	scanner.close();
+    	return medications;
+    }
+    
+    /**
+     * Creates list of medications to take today on the home list.
+     */
+    private ObservableList<Medication> getTodaysMedications() {
     	ObservableList<Medication> medications = FXCollections.observableArrayList();
     	medications.add(new Medication("Advil", "12:00", "Daily", "2"));
     	medications.add(new Medication("Tylenol", "3:00", "Daily", "1"));
-    	medications.add(new Medication("Ibuprofen", "18:00", "Weekly", "3"));
     	return medications;
     }
 
-    
+    /**
+     * Event for editing cells.
+     */
     public void changeMyNameCellEvent(CellEditEvent editedCell) {
     	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
     	medicationSelected.setName(editedCell.getNewValue().toString());
     }
     
+    /**
+     * allows medications to be deleted.
+     */
+    @FXML
+    public void deleteButtonClick() {
+    	ObservableList<Medication> selectedRow, allMedications;
+    	allMedications = medicationTable.getItems();
+    	selectedRow = medicationTable.getSelectionModel().getSelectedItems();
+    	allMedications.remove(selectedRow.get(0));
+    }
     
+    /**
+     * creates pop up to add new medication!
+     */
     @FXML
     private void newButtonClick() {
     	System.out.println("new");
     	newButton.setText("clicked -_-");
     }
 
-    @FXML
-    private void editButtonClick() {
-    	System.out.println("edit");
-    	editButton.setText("uhhhh -.-");
-    }
-
-    @FXML
-    private void deleteButtonClick() {
-    	System.out.println("delete");
-    	deleteButton.setText("i am doing something `_`");
-    }
 
 }
 
