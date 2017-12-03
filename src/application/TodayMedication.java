@@ -12,6 +12,7 @@ public class TodayMedication {
 	
 	private SimpleStringProperty name  = new SimpleStringProperty("");
 	private SimpleStringProperty time = new SimpleStringProperty("");
+	private SimpleStringProperty dose = new SimpleStringProperty("");
 	private SimpleStringProperty status = new SimpleStringProperty("");
 
 	public TodayMedication() {
@@ -21,6 +22,7 @@ public class TodayMedication {
 	public TodayMedication(Medication medication, String status) {
 		setName(medication.getName());
 		setTime(medication.getTime());
+		setDose(medication.getDose());
 		setStatus(status);
 	}
 	
@@ -40,13 +42,20 @@ public class TodayMedication {
 		this.time.set(time);
 	}
 	
-	// dose of med to be taken at time, String, ex. 4
+	// status of med to be taken at time, String, ex. 4
+	public String getDose() {
+		return dose.get();
+	}
+	public void setDose(String dose) {
+		this.dose.set(dose);
+	}
+	
+	// status of med to be taken at time, String, ex. 4
 	public String getStatus() {
 		return status.get();
 	}
 	public void setStatus(String status) {
 		this.status.set(status);
 	}
-	
 	
 }

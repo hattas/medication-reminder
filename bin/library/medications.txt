@@ -1,3 +1,3 @@
-Turkey;3;Weekly;6
-Tylenol;3:00;Daily;1
-Ham;234;All day;2
+Turkey;3;Weekly;69
+Tylenol;3:00;Daily;69
+Ham;234;All day;9

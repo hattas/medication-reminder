@@ -44,6 +44,7 @@ public class Controller implements Initializable {
     
     @FXML private TableColumn<TodayMedication, String> colHomeTime;
     @FXML private TableColumn<TodayMedication, String> colHomeName;
+    @FXML private TableColumn<TodayMedication, String> colHomeDose;
     @FXML private TableColumn<TodayMedication, String> colHomeStatus;
     @FXML private TableColumn<Medication, String> colMyDose;
     @FXML private TableColumn<Medication, String> colMyName;
@@ -66,6 +67,7 @@ public class Controller implements Initializable {
 		colHomeTime.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("time"));
 		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);
 		colHomeName.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("name"));
+		colHomeDose.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("dose"));
 		colHomeStatus.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("status"));
 		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
