@@ -1,3 +1,3 @@
-Advil;12:00;Daily;2
-Tylenol;3:00;Daily;1
-Ibuprofen;18:00;Weekly;3
+Advil;12:00;Daily;2;Taken
+Tylenol;3:00;Daily;1;Taken
+Ibuprofen;18:00;Weekly;3;Not Taken

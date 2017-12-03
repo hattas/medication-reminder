@@ -34,29 +34,43 @@ public class Controller implements Initializable {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     
-    @FXML private TableColumn<?, ?> colHomeTime;
-    @FXML private TableColumn<?, ?> colHomeName;
-    @FXML private TableColumn<?, ?> colHomeStatus;
+    @FXML private TableColumn<TodayMedication, String> colHomeTime;
+    @FXML private TableColumn<TodayMedication, String> colHomeName;
+    @FXML private TableColumn<TodayMedication, String> colHomeStatus;
     @FXML private TableColumn<Medication, String> colMyDose;
     @FXML private TableColumn<Medication, String> colMyName;
     @FXML private TableColumn<Medication, String> colMyFrequency;
     @FXML private TableColumn<Medication, String> colMyTime;
-    @FXML private TableColumn<?, ?> colLogName;
-    @FXML private TableColumn<?, ?> colLogTime;
-    @FXML private TableColumn<?, ?> colLogDescription;
+    @FXML private TableColumn<Medication, String> colLogName;
+    @FXML private TableColumn<Medication, String> colLogTime;
+    @FXML private TableColumn<Medication, String> colLogDescription;
     
+    @FXML private TableView<TodayMedication> homeTable;
     @FXML private TableView<Medication> medicationTable;
+
     
     
     // initialize controller class
     @Override
 	public void initialize(URL url, ResourceBundle resources) {
 		System.out.println("Initializing...");
+		
+		colHomeTime.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("time"));
+		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);
+		colHomeName.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("name"));
+		colHomeStatus.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("status"));
+		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
 		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
 		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
 		
+		try {
+			homeTable.setItems(getTodaysMedications());
+			homeTable.getSortOrder().add(colHomeTime);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			medicationTable.setItems(getMedications());
 		} catch (FileNotFoundException e) {
@@ -90,12 +104,16 @@ public class Controller implements Initializable {
     
     /**
      * Creates list of medications to take today on the home list.
+     * @throws FileNotFoundException 
      */
-    private ObservableList<Medication> getTodaysMedications() {
-    	ObservableList<Medication> medications = FXCollections.observableArrayList();
-    	medications.add(new Medication("Advil", "12:00", "Daily", "2"));
-    	medications.add(new Medication("Tylenol", "3:00", "Daily", "1"));
-    	return medications;
+    private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
+    	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
+    	Scanner scanner = new Scanner(new File("src\\library\\medications.txt"));
+    	for (Medication medication : getMedications()) {
+    		todaysMedications.add(new TodayMedication(medication, "Taken"));
+    	}
+    	scanner.close();
+    	return todaysMedications;
     }
 
     /**
@@ -115,6 +133,14 @@ public class Controller implements Initializable {
     	allMedications = medicationTable.getItems();
     	selectedRow = medicationTable.getSelectionModel().getSelectedItems();
     	allMedications.remove(selectedRow.get(0));
+    	
+    	// update today view
+    	try {
+			homeTable.setItems(getTodaysMedications());
+			homeTable.getSortOrder().add(colHomeTime);
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}
     }
     
     /**
