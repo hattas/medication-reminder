@@ -61,22 +61,28 @@ public class Controller implements Initializable {
 		colHomeStatus.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("status"));
 		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colMyName.setSortType(TableColumn.SortType.ASCENDING);
 		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
 		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
 		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
 		
 		try {
 			homeTable.setItems(getTodaysMedications());
-			homeTable.getSortOrder().add(colHomeTime);
 		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 		try {
 			medicationTable.setItems(getMedications());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
+		// sort tables
+		homeTable.getSortOrder().add(colHomeTime);
+		medicationTable.getSortOrder().add(colMyName);
+
 		// make columns editable
 		medicationTable.setEditable(true);
 		colMyName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -108,11 +114,9 @@ public class Controller implements Initializable {
      */
     private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
-    	Scanner scanner = new Scanner(new File("src\\library\\medications.txt"));
     	for (Medication medication : getMedications()) {
     		todaysMedications.add(new TodayMedication(medication, "Taken"));
     	}
-    	scanner.close();
     	return todaysMedications;
     }
 
@@ -126,21 +130,20 @@ public class Controller implements Initializable {
     
     /**
      * allows medications to be deleted.
+     * @throws FileNotFoundException 
      */
     @FXML
-    public void deleteButtonClick() {
+    public void deleteButtonClick() throws FileNotFoundException {
     	ObservableList<Medication> selectedRow, allMedications;
     	allMedications = medicationTable.getItems();
     	selectedRow = medicationTable.getSelectionModel().getSelectedItems();
     	allMedications.remove(selectedRow.get(0));
     	
     	// update today view
-    	try {
-			homeTable.setItems(getTodaysMedications());
-			homeTable.getSortOrder().add(colHomeTime);
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
+
+		homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);
+
     }
     
     /**
