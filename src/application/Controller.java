@@ -16,8 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 public class Controller implements Initializable {
 
@@ -53,6 +55,13 @@ public class Controller implements Initializable {
 		
 		medicationTable.setItems(getMedications());
 		
+		// make columns editable
+		medicationTable.setEditable(true);
+		colMyName.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMyDose.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMyTime.setCellFactory(TextFieldTableCell.forTableColumn());
+		colMyFrequency.setCellFactory(TextFieldTableCell.forTableColumn());
+		
 		System.out.println("Done initializing.");
 	}
     
@@ -64,6 +73,12 @@ public class Controller implements Initializable {
     	return medications;
     }
 
+    
+    public void changeMyNameCellEvent(CellEditEvent editedCell) {
+    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
+    	medicationSelected.setName(editedCell.getNewValue().toString());
+    }
+    
     
     @FXML
     private void newButtonClick() {

@@ -90,9 +90,9 @@
                               <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClick" text="Delete" />
                            </children>
                         </HBox>
-                        <TableView fx:id="medicationTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                        <TableView fx:id="medicationTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
                            <columns>
-                              <TableColumn fx:id="colMyName" minWidth="140.0" prefWidth="140.0" text="Name" />
+                              <TableColumn fx:id="colMyName" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Name" />
                               <TableColumn fx:id="colMyTime" minWidth="140.0" prefWidth="140.0" text="Time" />
                               <TableColumn fx:id="colMyDose" minWidth="140.0" prefWidth="140.0" text="Dose" />
                               <TableColumn fx:id="colMyFrequency" minWidth="140.0" prefWidth="140.0" text="Frequency" />
