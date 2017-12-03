@@ -143,7 +143,6 @@ public class Controller implements Initializable {
     	rewriteMedications(allMedications);
     	
     	// update home tab tableview
-    	homeTable.getItems().clear();//TODO maybe delete
 		homeTable.setItems(getTodaysMedications());
 		homeTable.getSortOrder().add(colHomeTime);
 
