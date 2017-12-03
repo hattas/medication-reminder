@@ -10,11 +10,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("UI.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("MedicationReminder.fxml"));
 			    
 		    Scene scene = new Scene(root);
 		    
-		    scene.getStylesheets().add("application/application.css");
+		    scene.getStylesheets().add("application/MedicationReminder.css");
 		    primaryStage.setTitle("Medication Reminder");
 		    primaryStage.setScene(scene);
 		    primaryStage.show();
