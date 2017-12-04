@@ -46,20 +46,23 @@ public class Controller implements Initializable {
     @FXML private TableColumn<TodayMedication, String> colHomeName;
     @FXML private TableColumn<TodayMedication, String> colHomeDose;
     @FXML private TableColumn<TodayMedication, String> colHomeStatus;
-    @FXML private TableColumn<Medication, String> colMyDose;
-    @FXML private TableColumn<Medication, String> colMyName;
-    @FXML private TableColumn<Medication, String> colMyFrequency;
-    @FXML private TableColumn<Medication, String> colMyTime;
-    @FXML private TableColumn<Medication, String> colLogName;
-    @FXML private TableColumn<Medication, String> colLogTime;
-    @FXML private TableColumn<Medication, String> colLogDescription;
+    @FXML private TableColumn<Medication, String     > colMyDose;
+    @FXML private TableColumn<Medication, String     > colMyName;
+    @FXML private TableColumn<Medication, String     > colMyFrequency;
+    @FXML private TableColumn<Medication, String     > colMyTime;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryDate;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryTime;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryName;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryDose;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryStatus;
     
     @FXML private TableView<TodayMedication> homeTable;
     @FXML private TableView<Medication> medicationTable;
+    @FXML private TableView<HistoryEntry> historyTable;
 
-    
-    
-    // initialize controller class
+    /**
+     * initialize the controller class. runs when program starts
+     */
     @Override
 	public void initialize(URL url, ResourceBundle rb) {
 		System.out.println("Initializing...");
@@ -76,6 +79,13 @@ public class Controller implements Initializable {
 		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
 		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
 		
+		colHistoryDate.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
+		colHistoryDate.setSortType(TableColumn.SortType.ASCENDING);
+		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
+		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
+		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
+		colHistoryStatus.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("status"));
+		
 		try {
 			homeTable.setItems(getTodaysMedications());
 		} catch (FileNotFoundException e1) {
@@ -89,9 +99,16 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
 		
+		try {
+			historyTable.setItems(getHistoryEntries());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		// sort tables
 		homeTable.getSortOrder().add(colHomeTime);
 		medicationTable.getSortOrder().add(colMyName);
+		historyTable.getSortOrder().add(colHistoryDate);
 
 		// make columns editable
 		medicationTable.setEditable(true);
@@ -102,6 +119,18 @@ public class Controller implements Initializable {
 		
 		System.out.println("Done initializing.");
 	}
+    
+    /**
+     * Creates list of medications to take today on the home list.
+     * @throws FileNotFoundException 
+     */
+    private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
+    	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
+    	for (Medication medication : getMedications()) {
+    		todaysMedications.add(new TodayMedication(medication, "Taken"));
+    	}
+    	return todaysMedications;
+    }
     
     /** 
      * @return List of medications for My Medications page from file.
@@ -118,20 +147,24 @@ public class Controller implements Initializable {
     	return medications;
     }
     
-    /**
-     * Creates list of medications to take today on the home list.
-     * @throws FileNotFoundException 
+    /***
+     * 
+     * @return list of history from history file
+     * @throws FileNotFoundException
      */
-    private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
-    	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
-    	for (Medication medication : getMedications()) {
-    		todaysMedications.add(new TodayMedication(medication, "Taken"));
+    private ObservableList<HistoryEntry> getHistoryEntries() throws FileNotFoundException { 
+    	ObservableList<HistoryEntry> historyEntry = FXCollections.observableArrayList();
+    	Scanner scanner = new Scanner(new File("src\\library\\history.txt"));
+    	while (scanner.hasNextLine()) {
+    		String[] nextLine = scanner.nextLine().split(";");
+    		historyEntry.add(new HistoryEntry(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4]));
     	}
-    	return todaysMedications;
+    	scanner.close();
+    	return historyEntry;
     }
 
     /**
-     * Event for editing cells
+     * Events for editing cells
      * @throws IOException 
      */
     public void changeMyNameCellEvent(CellEditEvent editedCell) throws IOException {
@@ -190,6 +223,54 @@ public class Controller implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);	
     }
     
+     
+    private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
+    	File newFile = new File("src\\library\\medications.txt");
+    	FileWriter writer = new FileWriter(newFile, false);
+    	for (Medication medication : allMedications) {
+    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
+    	}
+    	writer.close();
+	}
+
+	/**
+     * creates pop up to add new medication!
+	 * @throws IOException 
+     */
+    @FXML
+    private void newButtonClick() throws IOException {
+    	
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("NewMedication.fxml"));    
+	    loader.load();
+	    
+	    NewMedicationController display = loader.getController();
+	    
+	    Parent parent = loader.getRoot();
+	    Stage stage = new Stage();
+	    Scene scene = new Scene(parent);
+	    scene.getStylesheets().add("application/Main.css");
+	    stage.setTitle("Add Medication");
+	    stage.setScene(scene);
+	    stage.initModality(Modality.APPLICATION_MODAL);
+	    stage.showAndWait();
+	    
+
+	    if (display.addButtonClicked()) {
+	    	File newFile = new File("src\\library\\medications.txt");
+	    	FileWriter writer = new FileWriter(newFile, true);
+	        Medication medication = display.getMedication(); 
+	        writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
+	        writer.close();
+	    }
+    	
+    	medicationTable.setItems(getMedications());
+		medicationTable.getSortOrder().add(colMyName);
+		
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);
+    }
+    
     /**
      * allows medications to be deleted.
      * @throws IOException
@@ -207,34 +288,14 @@ public class Controller implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);
     }
     
-    private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
-		// TODO Auto-generated method stub
-    	File newFile = new File("src\\library\\medications.txt");
-    	FileWriter writer = new FileWriter(newFile, false);
-    	for (Medication medication : allMedications) {
-    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
-    	}
-    	writer.close();
-	}
-
-	/**
-     * creates pop up to add new medication!
-	 * @throws IOException 
-     */
     @FXML
-    private void newButtonClick() throws IOException {
-    	Parent root = FXMLLoader.load(getClass().getResource("NewMedication.fxml"));    
-	    Scene scene = new Scene(root);
-	    scene.getStylesheets().add("application/Main.css");
-	    Stage stage = new Stage();
-	    stage.setTitle("Add Medication");
-	    stage.setScene(scene);
-	    stage.initModality(Modality.APPLICATION_MODAL);
-	    stage.showAndWait();
+    public void clearButtonClick() throws IOException {
+    	File newFile = new File("src\\library\\history.txt");
+    	FileWriter writer = new FileWriter(newFile, false);
+        writer.close();
+        
+        historyTable.setItems(getHistoryEntries());
+        historyTable.getSortOrder().add(colHistoryDate);
     }
-    
-   
-
-
 }
 
