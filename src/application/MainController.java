@@ -32,8 +32,11 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import listobjects.HistoryEntry;
+import listobjects.Medication;
+import listobjects.TodayMedication;
 
-public class Controller implements Initializable {
+public class MainController implements Initializable {
 
     @FXML private Label homeTimeLabel;
     @FXML private Label homeDateLabel;
