@@ -48,16 +48,11 @@
          <tabs>
             <Tab text="Home">
                <content>
-                  <AnchorPane>
+                  <AnchorPane fx:id="homePane">
                      <children>
                         <Label fx:id="homeDateLabel" text="Saturday, December 2" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                            <font>
                               <Font size="50.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="homeTimeLabel" text="6:43 PM" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
-                           <font>
-                              <Font size="35.0" />
                            </font>
                         </Label>
                         <TableView fx:id="homeTable" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">

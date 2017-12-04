@@ -11,9 +11,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-			    
-		    Scene scene = new Scene(root);
-		    
+		    Scene scene = new Scene(root);	    
 		    scene.getStylesheets().add("application/Main.css");
 		    primaryStage.setTitle("Medication Reminder");
 		    primaryStage.setScene(scene);

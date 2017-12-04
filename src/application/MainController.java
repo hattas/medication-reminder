@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -29,8 +31,8 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import listobjects.HistoryEntry;
 import listobjects.Medication;
@@ -59,6 +61,8 @@ public class MainController implements Initializable {
     @FXML private TableColumn<HistoryEntry, String   > colHistoryDose;
     @FXML private TableColumn<HistoryEntry, String   > colHistoryStatus;
     
+    @FXML private AnchorPane homePane;
+    
     @FXML private TableView<TodayMedication> homeTable;
     @FXML private TableView<Medication> medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
@@ -66,9 +70,23 @@ public class MainController implements Initializable {
     /**
      * initialize the controller class. runs when program starts
      */
-    @Override
+	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		System.out.println("Initializing...");
+		
+		
+		
+		Date date = new Date();
+		SimpleDateFormat dateSDF = new SimpleDateFormat("EEEE, MMMM d");
+		homeDateLabel.setText(dateSDF.format(date));
+		DigitalClock homeTimeLabel = new DigitalClock();
+		homeTimeLabel.setStyle("-fx-font-size: 32pt;");
+		AnchorPane.setTopAnchor(homeTimeLabel, 80.0);
+		AnchorPane.setLeftAnchor(homeTimeLabel, 20.0);
+		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
+		homePane.getChildren().add(homeTimeLabel);
+		
+		
 		
 		colHomeTime.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("time"));
 		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);
@@ -226,7 +244,6 @@ public class MainController implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);	
     }
     
-     
     private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
     	File newFile = new File("src\\library\\medications.txt");
     	FileWriter writer = new FileWriter(newFile, false);
