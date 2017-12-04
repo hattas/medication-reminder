@@ -3,9 +3,6 @@
 	-fx-background-color: #303030;
 	-fx-font-size: 13pt;
 }
-.scroll-pane > .viewport {
-   -fx-background-color: #303030;
-}
 .button{
 	-fx-text-fill: #ffffff;
 	-fx-background-color: linear-gradient(#555555, #5a5a5a);
@@ -14,7 +11,9 @@
 .button:hover{
 	-fx-background-color: linear-gradient(#7a7a7a, #757575);
 }
-
+.button:pressed{
+	-fx-background-color: linear-gradient(#9a9a9a, #959595);
+}
 
 #table-header {
 	-fx-font-size: 16pt;
@@ -34,39 +33,32 @@
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
-
 .tab-pane{
     -fx-tab-min-width:170px;
 }
-
 .tab-pane .tab{
     -fx-background-color: #303030;
 
 }
-
 .tab-pane .tab:selected{
     -fx-background-color: #303030;
 }
-
 .tab .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #999999;
     -fx-font-size: 17px;
     -fx-font-weight: bold;
 }
-
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
     -fx-text-fill: #56b3ff;
 }
-
 .tab:selected:hover .tab-label{
 	-fx-text-fill: #9bd2ff;
 }
 .tab:hover .tab-label{
 	-fx-text-fill: #ffffff;
 }
-
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
      -fx-border-width: 0;
 }
@@ -79,7 +71,6 @@
     -fx-background-color: #eeeeee;
     -fx-prompt-text-fill: #666666;
 }
-
 .text-field:focused {
     -fx-background-color: #ffffff;
 }
@@ -90,26 +81,78 @@
 
 .table-view{
    -fx-background-color: transparent;
+   -fx-table-cell-border-color: transparent;
 }
-
 .table-view:focused{
     -fx-background-color: transparent;
 }
-
 .table-view .column-header-background{
     -fx-background-color: #505050;
-    -fx-border-color: #a0a0a0
 }
-
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
     -fx-text-fill: white;
 }
-
 .table-view .column-header,
 .table-view .filler {
     -fx-background-color: transparent;
 }
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
 
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #303030;
+}
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #454545;
+}
+.table-row-cell:selected {
+    -fx-background-color: #9bd2ff;
+    -fx-table-cell-border-color: transparent;
+    -fx-text-fill: black;
+    
+}
 
+.table-view > .virtual-flow > .scroll-bar:vertical,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track,
+.table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
+.table-view > .virtual-flow > .scroll-bar:horizontal,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track,
+.table-view > .virtual-flow > .scroll-bar:horizontal > .track-background {
+    -fx-background-color: transparent;
+}
 
+.table-view > .virtual-flow > .scroll-bar:vertical > .thumb {
+	-fx-background-color: linear-gradient(#656565, #555555);
+}
+.table-view > .virtual-flow > .scroll-bar:vertical > .thumb:hover {
+	-fx-background-color: linear-gradient(#858585, #757575);
+}
+.table-view > .virtual-flow > .scroll-bar:vertical > .thumb:pressed {
+	-fx-background-color: linear-gradient(#a5a5a5, #959595);	
+}
+
+.table-view > .virtual-flow > .scroll-bar > .increment-button, 
+.table-view > .virtual-flow > .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
+}
+
+/*
+ * gets rid of horizontal scrolling.
+ */
+.table-view *.scroll-bar:horizontal *.increment-button,
+.table-view *.scroll-bar:horizontal *.decrement-button {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+.table-view *.scroll-bar:horizontal *.increment-arrow, 
+.table-view *.scroll-bar:horizontal *.decrement-arrow {
+    -fx-background-color: null;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-shape: null;
+}

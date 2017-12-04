@@ -1,13 +1,8 @@
-f;f;f;f
-Ham;234;All day;9
 john;2;10;1
-name;time;dose;freq
+john;time;dose;73 often
 name;time;dose;freq
 name;time;dose;freq
 test;test;test;test
 Turkey;3;Weekly;69
 Tylenol;3:00;Daily;69
-john;time;dose;73 often
-Yes;Want;I;Cake
-j;h;n;o
-f;wef;wef;f
+a;b;d;c

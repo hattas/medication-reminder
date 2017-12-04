@@ -50,29 +50,26 @@
                <content>
                   <AnchorPane>
                      <children>
-                        <Label fx:id="homeDateLabel" text="Saturday, December 2" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <Label fx:id="homeDateLabel" text="Saturday, December 2" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                            <font>
                               <Font size="50.0" />
                            </font>
                         </Label>
-                        <Label fx:id="homeTimeLabel" text="6:43 PM" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0">
+                        <Label fx:id="homeTimeLabel" text="6:43 PM" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
                            <font>
                               <Font size="35.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="homeTable" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                        <TableView fx:id="homeTable" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
                           <placeholder>
         						<Label text="You have no medications to take today." />
     					   </placeholder>
                           <columns>
-                              <TableColumn fx:id="colHomeTime" minWidth="145" prefWidth="145" text="Time" />
-                              <TableColumn fx:id="colHomeName" minWidth="145" prefWidth="145" text="Name" />
-                              <TableColumn fx:id="colHomeDose" minWidth="145" prefWidth="145" text="Dose" />
-                              <TableColumn fx:id="colHomeStatus" minWidth="145" prefWidth="145" text="Status" />
+                              <TableColumn fx:id="colHomeTime" minWidth="135" prefWidth="135" text="Time" />
+                              <TableColumn fx:id="colHomeName" minWidth="135" prefWidth="135" text="Name" />
+                              <TableColumn fx:id="colHomeDose" minWidth="135" prefWidth="135" text="Dose" />
+                              <TableColumn fx:id="colHomeStatus" minWidth="135" prefWidth="135" text="Status" />
                           </columns>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </padding>
                         </TableView>
                      </children>
                   </AnchorPane>
@@ -93,19 +90,16 @@
                               <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClick" text="Delete" />
                            </children>
                         </HBox>
-                        <TableView fx:id="medicationTable" editable="true" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                        <TableView fx:id="medicationTable" editable="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
                            <placeholder>
         						<Label text="You have no medications. Click new to add one." />
     					   </placeholder>
                            <columns>
-                              <TableColumn fx:id="colMyName" minWidth="140.0" onEditCommit="#changeMyNameCellEvent" prefWidth="140.0" text="Name" />
-                              <TableColumn fx:id="colMyTime" minWidth="140.0" onEditCommit="#changeMyTimeCellEvent" prefWidth="140.0" text="Time" />
-                              <TableColumn fx:id="colMyDose" minWidth="140.0" onEditCommit="#changeMyDoseCellEvent" prefWidth="140.0" text="Dose" />
-                              <TableColumn fx:id="colMyFrequency" minWidth="140.0" onEditCommit="#changeMyFrequencyCellEvent" prefWidth="140.0" text="Frequency" />
+                              <TableColumn fx:id="colMyName" minWidth="135" onEditCommit="#changeMyNameCellEvent" prefWidth="135" text="Name" />
+                              <TableColumn fx:id="colMyTime" minWidth="135" onEditCommit="#changeMyTimeCellEvent" prefWidth="135" text="Time" />
+                              <TableColumn fx:id="colMyDose" minWidth="135" onEditCommit="#changeMyDoseCellEvent" prefWidth="135" text="Dose" />
+                              <TableColumn fx:id="colMyFrequency" minWidth="135" onEditCommit="#changeMyFrequencyCellEvent" prefWidth="135" text="Frequency" />
                            </columns>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </padding>
                         </TableView>
                      </children>
                   </AnchorPane>
@@ -125,20 +119,17 @@
                               <Button mnemonicParsing="false" onAction="#clearButtonClick" text="Clear History" />
                            </children>
                         </HBox>
-                        <TableView fx:id="historyTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+                        <TableView fx:id="historyTable" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0">
                           <placeholder>
         						<Label text="History will be visible once you take your first medication." />
     					   </placeholder>
                           <columns>
-                            <TableColumn fx:id="colHistoryDate" minWidth="90.0" prefWidth="90.0" text="Date" />
-                            <TableColumn fx:id="colHistoryTime" minWidth="90.0" prefWidth="90.0" text="Time" />
-                            <TableColumn fx:id="colHistoryName" minWidth="90.0" prefWidth="90.0" text="Name" />
-                            <TableColumn fx:id="colHistoryDose" minWidth="90.0" prefWidth="90.0" text="Dose" />
-                            <TableColumn fx:id="colHistoryStatus" minWidth="90.0" prefWidth="90.0" text="Status" />
+                            <TableColumn fx:id="colHistoryDate" minWidth="112" prefWidth="112" text="Date" />
+                            <TableColumn fx:id="colHistoryTime" minWidth="112" prefWidth="112" text="Time" />
+                            <TableColumn fx:id="colHistoryName" minWidth="112" prefWidth="112" text="Name" />
+                            <TableColumn fx:id="colHistoryDose" minWidth="112" prefWidth="112" text="Dose" />
+                            <TableColumn fx:id="colHistoryStatus" minWidth="112" prefWidth="112" text="Status" />
                           </columns>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" />
-                           </padding>
                         </TableView>
                      </children>
                   </AnchorPane>
