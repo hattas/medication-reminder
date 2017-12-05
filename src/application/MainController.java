@@ -29,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
@@ -47,10 +48,10 @@ public class MainController implements Initializable {
     @FXML private Button editButton;
     @FXML private Button deleteButton;
     
-    @FXML private TableColumn<TodayMedication, String> colHomeTime;
-    @FXML private TableColumn<TodayMedication, String> colHomeName;
-    @FXML private TableColumn<TodayMedication, String> colHomeDose;
-    @FXML private TableColumn<TodayMedication, String> colHomeStatus;
+    @FXML private TableColumn<Medication, String> colHomeTime;
+    @FXML private TableColumn<Medication, String> colHomeName;
+    @FXML private TableColumn<Medication, String> colHomeDose;
+    @FXML private TableColumn<Medication, String> colHomeStatus;
     @FXML private TableColumn<Medication, String     > colMyDose;
     @FXML private TableColumn<Medication, String     > colMyName;
     @FXML private TableColumn<Medication, String     > colMyFrequency;
@@ -63,7 +64,7 @@ public class MainController implements Initializable {
     
     @FXML private AnchorPane homePane;
     
-    @FXML private TableView<TodayMedication> homeTable;
+    @FXML private TableView<Medication> homeTable;
     @FXML private TableView<Medication> medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
 
@@ -73,8 +74,6 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		System.out.println("Initializing...");
-		
-		
 		
 		Date date = new Date();
 		SimpleDateFormat dateSDF = new SimpleDateFormat("EEEE, MMMM d");
@@ -87,12 +86,11 @@ public class MainController implements Initializable {
 		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
 		homePane.getChildren().addAll(homeTimeLabel);
 
-		
-		colHomeTime.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("time"));
-		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);
-		colHomeName.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("name"));
-		colHomeDose.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("dose"));
-		colHomeStatus.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("status"));
+		colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
+		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);	
+		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
+		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
 		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colMyName.setSortType(TableColumn.SortType.ASCENDING);
@@ -145,10 +143,11 @@ public class MainController implements Initializable {
      * Creates list of medications to take today on the home list.
      * @throws FileNotFoundException 
      */
-    private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
-    	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
+    private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
+    	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
     	for (Medication medication : getMedications()) {
-    		todaysMedications.add(new TodayMedication(medication, false));
+    		if (medication.getFrequency().equals("today"))
+    			todaysMedications.add(medication);
     	}
     	return todaysMedications;
     }
@@ -162,7 +161,7 @@ public class MainController implements Initializable {
     	Scanner scanner = new Scanner(new File("src\\library\\medications.txt"));
     	while (scanner.hasNextLine()) {
     		String[] nextLine = scanner.nextLine().split(";");
-    		medications.add(new Medication(nextLine[0],nextLine[1],nextLine[2],nextLine[3]));
+    		medications.add(new Medication(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4]));
     	}
     	scanner.close();
     	return medications;
@@ -244,20 +243,28 @@ public class MainController implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);	
     }
     
-    /**
-     * rewrites medication file based on medicatin list as input.
-     * @param allMedications
-     * @throws IOException
-     */
-    private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
-    	File newFile = new File("src\\library\\medications.txt");
-    	FileWriter writer = new FileWriter(newFile, false);
-    	for (Medication medication : allMedications) {
-    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
-    	}
-    	writer.close();
-	}
 
+    /**
+     * set satus of the medication to taken
+	 * @throws IOException 
+     */
+    @FXML
+    private void takeButtonClick() throws IOException {
+    	
+    	ObservableList<Medication> allMedications = homeTable.getItems();
+    	Medication medicationSelected = homeTable.getSelectionModel().getSelectedItem();
+    	allMedications.remove(medicationSelected);
+    	medicationSelected.setStatus(true);
+    	allMedications.add(medicationSelected);
+    	rewriteMedications(allMedications);
+    	  	
+    	medicationTable.setItems(getMedications());
+    	medicationTable.getSortOrder().add(colMyName);
+    	homeTable.setItems(getTodaysMedications());
+		homeTable.getSortOrder().add(colHomeTime);
+		
+    }
+    
 	/**
      * creates pop up to add new medication!
 	 * @throws IOException 
@@ -285,7 +292,7 @@ public class MainController implements Initializable {
 	    	File newFile = new File("src\\library\\medications.txt");
 	    	FileWriter writer = new FileWriter(newFile, true);
 	        Medication medication = display.getMedication(); 
-	        writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+"\n");
+	        writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+";"+medication.getStatus()+"\n");
 	        writer.close();
 	    }
     	
@@ -312,6 +319,21 @@ public class MainController implements Initializable {
 		homeTable.setItems(getTodaysMedications());
 		homeTable.getSortOrder().add(colHomeTime);
     }
+    
+    /**
+     * rewrites medication file based on medicatin list as input.
+     * @param allMedications
+     * @throws IOException
+     */
+    private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
+    	File newFile = new File("src\\library\\medications.txt");
+    	FileWriter writer = new FileWriter(newFile, false);
+    	for (Medication medication : allMedications) {
+    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+";"+medication.getStatus()+"\n");
+    	}
+    	writer.close();
+	}
+    
     
     @FXML
     public void clearButtonClick() throws IOException {

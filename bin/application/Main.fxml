@@ -52,7 +52,7 @@
                      <children>
                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="60.0">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clearButtonClick" text="Take Medication" />
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#takeButtonClick" text="Take Medication" />
                            </children>
                         </HBox>
                         <Label fx:id="homeDateLabel" text="Saturday, December 2" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
@@ -65,8 +65,8 @@
         						<Label text="You have no medications to take today." />
     					   </placeholder>
                           <columns>
-                              <TableColumn fx:id="colHomeTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colHomeName" minWidth="135" prefWidth="135" text="Name" />
+                              <TableColumn fx:id="colHomeTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colHomeDose" minWidth="135" prefWidth="135" text="Dose" />
                               <TableColumn fx:id="colHomeStatus" minWidth="135" prefWidth="135" text="Status" />
                           </columns>

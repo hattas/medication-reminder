@@ -13,16 +13,19 @@ public class Medication {
 	private SimpleStringProperty time = new SimpleStringProperty("");
 	private SimpleStringProperty frequency = new SimpleStringProperty("");
 	private SimpleStringProperty dose = new SimpleStringProperty("");
+	private SimpleStringProperty status = new SimpleStringProperty("");
 
 	public Medication() {
-		this("","","","");
+		this("","","","","");
 	}
 	
-	public Medication(String name, String time, String frequency, String dose) {
+	public Medication(String name, String time, String frequency, String dose, String status) {
 		setName(name);
 		setTime(time);
 		setFrequency(frequency);
 		setDose(dose);
+		if (status.toLowerCase().equals("taken")) setStatus(true);
+		else setStatus(false);
 	}
 	
 	// name of medication, string, "Advil"
@@ -55,6 +58,16 @@ public class Medication {
 	}
 	public void setFrequency(String frequency) {
 		this.frequency.set(frequency);
+	}
+	
+	public String getStatus() {
+		return status.get();
+	}
+	public void setStatus(boolean status) {
+		if (status)
+			this.status.set("Taken");
+		else
+			this.status.set("Not Taken");
 	}
 	
 }

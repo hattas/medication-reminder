@@ -28,7 +28,7 @@ public class NewMedicationController implements Initializable{
 	}
 	
     public Medication getMedication() {
-        return new Medication(addNameField.getText(),addTimeField.getText(),addFrequencyField.getText(),addDoseField.getText());
+        return new Medication(addNameField.getText(),addTimeField.getText(),addFrequencyField.getText(),addDoseField.getText(),"Not Taken");
     }
 	
     public boolean addButtonClicked() {

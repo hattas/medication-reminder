@@ -1,8 +1,2 @@
-a;b;dog;cat
-f;fds;fdsf;f
-name;time;dose;freq
-name;time;dose;freq
-test;test;test;test
-Turkey;3;Weekly;69
-Tylenol;3:00;Daily;69
-floof;go;go;90
+today;today;today;today;Taken
+today;please;today;today;Taken
