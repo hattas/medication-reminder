@@ -15,7 +15,7 @@ public class DigitalClock extends Label {
 		bindToTime();
 	}
 	
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm:ss a");
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm a");
 
 	// the digital clock updates once a second.
 	private void bindToTime() {

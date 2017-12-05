@@ -124,11 +124,10 @@
         						<Label text="History will be visible once you take your first medication." />
     					   </placeholder>
                           <columns>
-                            <TableColumn fx:id="colHistoryDate" minWidth="112" prefWidth="112" text="Date" />
-                            <TableColumn fx:id="colHistoryTime" minWidth="112" prefWidth="112" text="Time" />
-                            <TableColumn fx:id="colHistoryName" minWidth="112" prefWidth="112" text="Name" />
-                            <TableColumn fx:id="colHistoryDose" minWidth="112" prefWidth="112" text="Dose" />
-                            <TableColumn fx:id="colHistoryStatus" minWidth="112" prefWidth="112" text="Status" />
+                            <TableColumn fx:id="colHistoryDate" minWidth="135" prefWidth="135" text="Date" />
+                            <TableColumn fx:id="colHistoryTime" minWidth="135" prefWidth="135" text="Time" />
+                            <TableColumn fx:id="colHistoryName" minWidth="135" prefWidth="135" text="Name" />
+                            <TableColumn fx:id="colHistoryDose" minWidth="135" prefWidth="135" text="Dose" />
                           </columns>
                         </TableView>
                      </children>

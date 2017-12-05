@@ -29,7 +29,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
@@ -37,7 +36,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listobjects.HistoryEntry;
 import listobjects.Medication;
-import listobjects.TodayMedication;
 
 public class MainController implements Initializable {
 
@@ -60,7 +58,6 @@ public class MainController implements Initializable {
     @FXML private TableColumn<HistoryEntry, String   > colHistoryTime;
     @FXML private TableColumn<HistoryEntry, String   > colHistoryName;
     @FXML private TableColumn<HistoryEntry, String   > colHistoryDose;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryStatus;
     
     @FXML private AnchorPane homePane;
     
@@ -103,12 +100,10 @@ public class MainController implements Initializable {
 		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
 		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
 		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
-		colHistoryStatus.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("status"));
 		
 		try {
 			homeTable.setItems(getTodaysMedications());
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -146,7 +141,7 @@ public class MainController implements Initializable {
     private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
     	for (Medication medication : getMedications()) {
-    		if (medication.getFrequency().equals("today"))
+    		if (medication.getFrequency().toLowerCase().equals("daily"))
     			todaysMedications.add(medication);
     	}
     	return todaysMedications;
@@ -177,7 +172,7 @@ public class MainController implements Initializable {
     	Scanner scanner = new Scanner(new File("src\\library\\history.txt"));
     	while (scanner.hasNextLine()) {
     		String[] nextLine = scanner.nextLine().split(";");
-    		historyEntry.add(new HistoryEntry(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4]));
+    		historyEntry.add(new HistoryEntry(nextLine[0],nextLine[1],nextLine[2],nextLine[3]));
     	}
     	scanner.close();
     	return historyEntry;
@@ -243,7 +238,6 @@ public class MainController implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);	
     }
     
-
     /**
      * set satus of the medication to taken
 	 * @throws IOException 
@@ -251,17 +245,20 @@ public class MainController implements Initializable {
     @FXML
     private void takeButtonClick() throws IOException {
     	
-    	ObservableList<Medication> allMedications = homeTable.getItems();
     	Medication medicationSelected = homeTable.getSelectionModel().getSelectedItem();
-    	allMedications.remove(medicationSelected);
-    	medicationSelected.setStatus(true);
-    	allMedications.add(medicationSelected);
-    	rewriteMedications(allMedications);
-    	  	
-    	medicationTable.setItems(getMedications());
-    	medicationTable.getSortOrder().add(colMyName);
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);
+    	
+    	if (medicationSelected != null && !medicationSelected.getStatus().equals("Taken")) {
+	    	ObservableList<Medication> allMedications = homeTable.getItems();
+	    	allMedications.remove(medicationSelected);
+	    	medicationSelected.setStatus(true);
+	    	allMedications.add(medicationSelected);
+	    	rewriteMedications(allMedications);
+	    	 
+	    	homeTable.setItems(getTodaysMedications());
+			homeTable.getSortOrder().add(colHomeTime);
+			
+			addHistoryEntry(medicationSelected);
+    	}
 		
     }
     
@@ -291,8 +288,8 @@ public class MainController implements Initializable {
 	    if (display.addButtonClicked()) {
 	    	File newFile = new File("src\\library\\medications.txt");
 	    	FileWriter writer = new FileWriter(newFile, true);
-	        Medication medication = display.getMedication(); 
-	        writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+";"+medication.getStatus()+"\n");
+	        Medication med = display.getMedication(); 
+	        writer.write(med.getName()+";"+med.getTime()+";"+med.getFrequency()+";"+med.getDose()+";"+med.getStatus()+"\n");
 	        writer.close();
 	    }
     	
@@ -328,12 +325,21 @@ public class MainController implements Initializable {
     private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
     	File newFile = new File("src\\library\\medications.txt");
     	FileWriter writer = new FileWriter(newFile, false);
-    	for (Medication medication : allMedications) {
-    		writer.write(medication.getName()+";"+medication.getTime()+";"+medication.getFrequency()+";"+medication.getDose()+";"+medication.getStatus()+"\n");
+    	for (Medication med : allMedications) {
+    		writer.write(med.getName()+";"+med.getTime()+";"+med.getFrequency()+";"+med.getDose()+";"+med.getStatus()+"\n");
     	}
     	writer.close();
 	}
     
+    private void addHistoryEntry(Medication med) throws IOException {
+    	File newFile = new File("src\\library\\history.txt");
+    	FileWriter writer = new FileWriter(newFile, true);
+    	writer.write("the date"+";"+"the time"+";"+med.getName()+";"+med.getDose()+"\n");
+    	writer.close();
+    	
+    	historyTable.setItems(getHistoryEntries());
+    	historyTable.getSortOrder().add(colHistoryDate);
+    }    
     
     @FXML
     public void clearButtonClick() throws IOException {
@@ -344,5 +350,6 @@ public class MainController implements Initializable {
         historyTable.setItems(getHistoryEntries());
         historyTable.getSortOrder().add(colHistoryDate);
     }
+     
 }
 

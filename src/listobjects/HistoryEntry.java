@@ -8,18 +8,16 @@ public class HistoryEntry {
 	private SimpleStringProperty time   = new SimpleStringProperty("");
 	private SimpleStringProperty name   = new SimpleStringProperty("");
 	private SimpleStringProperty dose   = new SimpleStringProperty("");
-	private SimpleStringProperty status = new SimpleStringProperty("");
 	
 	public HistoryEntry() {
-		this("", "", "", "", "");
+		this("", "", "", "");
 	}
 	
-	public HistoryEntry(String date, String time, String name, String dose, String status) {
+	public HistoryEntry(String date, String time, String name, String dose) {
 		setDate(date);
 		setTime(time);
 		setName(name);
 		setDose(dose);
-		setStatus(status);
 	}
 	
 	public String getDate() { 
@@ -50,11 +48,5 @@ public class HistoryEntry {
 		this.dose.set(dose);
 	}
 	
-	public String getStatus() {
-		return status.get();
-	}
-	public void setStatus(String status) {
-		this.status.set(status);
-	}
 	
 }
