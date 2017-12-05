@@ -15,14 +15,17 @@ public class TodayMedication {
 	private SimpleStringProperty status = new SimpleStringProperty("");
 
 	public TodayMedication() {
-		this(new Medication(), "");
+		this(new Medication(), false);
 	}
 	
-	public TodayMedication(Medication medication, String status) {
+	public TodayMedication(Medication medication, boolean status) {
 		setName(medication.getName());
 		setTime(medication.getTime());
 		setDose(medication.getDose());
-		setStatus(status);
+		if (status)
+			setStatus(status);
+		else
+			setStatus(false);
 	}
 	
 	// name of medication, string, "Advil"
@@ -53,8 +56,11 @@ public class TodayMedication {
 	public String getStatus() {
 		return status.get();
 	}
-	public void setStatus(String status) {
-		this.status.set(status);
+	public void setStatus(boolean status) {
+		if (status)
+			this.status.set("Taken");
+		else
+			this.status.set("Not Taken");
 	}
 	
 }

@@ -81,12 +81,12 @@ public class MainController implements Initializable {
 		homeDateLabel.setText(dateSDF.format(date));
 		DigitalClock homeTimeLabel = new DigitalClock();
 		homeTimeLabel.setStyle("-fx-font-size: 32pt;");
+		homeTimeLabel.setMouseTransparent(true);
 		AnchorPane.setTopAnchor(homeTimeLabel, 80.0);
 		AnchorPane.setLeftAnchor(homeTimeLabel, 20.0);
 		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
-		homePane.getChildren().add(homeTimeLabel);
-		
-		
+		homePane.getChildren().addAll(homeTimeLabel);
+
 		
 		colHomeTime.setCellValueFactory(new PropertyValueFactory<TodayMedication, String>("time"));
 		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);
@@ -148,7 +148,7 @@ public class MainController implements Initializable {
     private ObservableList<TodayMedication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<TodayMedication> todaysMedications = FXCollections.observableArrayList();
     	for (Medication medication : getMedications()) {
-    		todaysMedications.add(new TodayMedication(medication, "Taken"));
+    		todaysMedications.add(new TodayMedication(medication, false));
     	}
     	return todaysMedications;
     }
@@ -244,6 +244,11 @@ public class MainController implements Initializable {
 		homeTable.getSortOrder().add(colHomeTime);	
     }
     
+    /**
+     * rewrites medication file based on medicatin list as input.
+     * @param allMedications
+     * @throws IOException
+     */
     private void rewriteMedications(ObservableList<Medication> allMedications) throws IOException {
     	File newFile = new File("src\\library\\medications.txt");
     	FileWriter writer = new FileWriter(newFile, false);

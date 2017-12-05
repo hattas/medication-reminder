@@ -1,5 +1,0 @@
-date;time;name;dose;status
-date;time;name;dose;status
-date;time;name;dose;status
-date;time;name;dose;status
-date;time;name;dose;status
