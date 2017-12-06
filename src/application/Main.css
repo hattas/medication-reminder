@@ -151,3 +151,34 @@
     -fx-padding: 0;
     -fx-shape: null;
 }
+
+
+/* Background color of the whole context menu*/
+.choice-box .context-menu { -fx-background-color: #202020; }
+/* Focused item background color in the list*/
+.choice-box .menu-item:focused { -fx-background-color: #9bd2ff; }
+/* Text color of non-focused items in the list*/
+.choice-box .menu-item > .label { -fx-text-fill: white; }
+/* Text color of focused item in the list*/
+.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
+
+/* Background color of the control itself */
+.choice-box {
+  -fx-background-color: linear-gradient(#555555, #5a5a5a);
+  -fx-mark-color: #9bd2ff;
+  -fx-background-radius: 5;
+}
+
+/* Selected item text color on the control itself */
+.choice-box > .label { -fx-text-fill: white; }
+
+.choice-box:hover{
+	-fx-background-color: linear-gradient(#7a7a7a, #757575);
+}
+.choice-box:pressed{
+	-fx-background-color: linear-gradient(#9a9a9a, #959595);
+}
+
+.radio-button{
+	-fx-text-fill: #ffffff;
+}

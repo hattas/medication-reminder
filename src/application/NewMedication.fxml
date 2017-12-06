@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewMedicationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewMedicationController">
    <children>
       <Label text="Add Medication" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
          <font>
             <Font size="32.0" />
          </font>
       </Label>
-      <GridPane alignment="CENTER" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="65.0">
+      <GridPane alignment="CENTER" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="60.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="10.0" prefWidth="149.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="251.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="110" minWidth="10.0" prefWidth="110" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200" minWidth="10.0" prefWidth="200" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name:" />
             <Label text="Dose:" GridPane.rowIndex="1" />
             <Label text="Time of day:" GridPane.rowIndex="2" />
-            <Label text="How often?" GridPane.rowIndex="3" />
-            <TextField fx:id="addNameField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" />
-            <TextField fx:id="addDoseField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="addTimeField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="addFrequencyField" minHeight="-Infinity" prefHeight="30.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="addNameField" minHeight="-Infinity" prefHeight="30.0" promptText="Advil, Tylenol, etc." GridPane.columnIndex="1" />
+            <TextField fx:id="addDoseField" minHeight="-Infinity" prefHeight="30.0" promptText="200 mg, etc." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <TextField fx:id="addHourField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="50.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="10.0" text=":" />
+                        <TextField fx:id="addMinuteField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="50.0" />
+                        <ChoiceBox fx:id="amPmChoiceBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="75.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
          </children>
       </GridPane>
-      <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
          <children>
             <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClick" text="Add" />
             <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonClick" text="Cancel" />
          </children>
       </HBox>
-      <Label fx:id="label" alignment="CENTER" text="Please fill out all fields." AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="250.0" />
+      <Label fx:id="label" alignment="CENTER" text="Please fill out all fields." AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" />
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="390.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" minWidth="-Infinity" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label text="Which days?" />
+                  <RadioButton fx:id="sunday" mnemonicParsing="false" text="Sunday" />
+                  <RadioButton fx:id="monday" mnemonicParsing="false" text="Monday" />
+                  <RadioButton fx:id="tuesday" mnemonicParsing="false" text="Tuesday" />
+                  <RadioButton fx:id="wednesday" mnemonicParsing="false" text="Wednesday" />
+                  <RadioButton fx:id="thursday" mnemonicParsing="false" text="Thursday" />
+                  <RadioButton fx:id="friday" mnemonicParsing="false" text="Friday" />
+                  <RadioButton fx:id="saturday" mnemonicParsing="false" text="Saturday" />
+                  <Button fx:id="selectAllButton" mnemonicParsing="false" onAction="#selectAllButtonClick" text="Select all" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

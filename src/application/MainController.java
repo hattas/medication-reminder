@@ -25,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
@@ -45,7 +46,7 @@ public class MainController implements Initializable {
     @FXML private Button newButton;
     @FXML private Button editButton;
     @FXML private Button deleteButton;
-    
+        
     @FXML private TableColumn<Medication, String> colHomeTime;
     @FXML private TableColumn<Medication, String> colHomeName;
     @FXML private TableColumn<Medication, String> colHomeDose;
@@ -82,7 +83,7 @@ public class MainController implements Initializable {
 		AnchorPane.setLeftAnchor(homeTimeLabel, 20.0);
 		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
 		homePane.getChildren().addAll(homeTimeLabel);
-
+				
 		colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
 		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);	
@@ -285,7 +286,7 @@ public class MainController implements Initializable {
 	    stage.showAndWait();
 	    
 
-	    if (display.addButtonClicked()) {
+	    if (display.addButtonIsClicked()) {
 	    	File newFile = new File("src\\library\\medications.txt");
 	    	FileWriter writer = new FileWriter(newFile, true);
 	        Medication med = display.getMedication(); 
