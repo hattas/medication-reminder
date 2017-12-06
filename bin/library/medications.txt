@@ -1,3 +1,6 @@
 Advil;12:30;Daily;2, 40 mg;Not Taken
 Tylenol;11:45;Daily;2, 10 mg;Taken
-asdf;5:59 null;sunmontuewedthufrisat;asdf;Not Taken
+asdf;5:59 AM;sunmontuewedthufrisat;asdf;Not Taken
+Advil\;;3:3 AM;sat;f;Not Taken
+f;2:4 AM;sat;f;Not Taken
+Advil;3:45 AM;sunmontuewedthufrisat;200 mg;Not Taken

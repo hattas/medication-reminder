@@ -47,13 +47,23 @@ public class NewMedicationController implements Initializable{
     	return addButtonClicked;
     }
     
+    
 	@FXML
 	private void addButtonClick() {
 		if(allFieldsFilledOut()) {
-			int hour = Integer.parseInt(addHourField.getText());
-			System.out.println(hour);
-			int minute = Integer.parseInt(addMinuteField.getText());
-			if (hour < 1 || hour > 12) {
+			int hour, minute;
+			
+			try { minute = Integer.parseInt(addMinuteField.getText()); } 
+			catch (NumberFormatException e) { minute = -1; }
+			
+			try { hour = Integer.parseInt(addHourField.getText()); } 
+			catch (NumberFormatException e) { hour = -1; }
+			
+			if (hour == -1 || minute == -1) {
+				label.setText("Hour/minutes must be numbers.");
+				label.setVisible(true);
+			}
+			else if (hour < 1 || hour > 12) {
 				label.setText("Hour must be between 1 and 12.");
 				label.setVisible(true);
 			}
@@ -91,8 +101,6 @@ public class NewMedicationController implements Initializable{
 		thursday.setSelected(true);
 		friday.setSelected(true);
 		saturday.setSelected(true);
-		System.out.println("select all");
-		System.out.println(amPmChoiceBox.getSelectionModel().getSelectedItem());
 	}
 	
 	private String getFrequency() {

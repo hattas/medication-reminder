@@ -68,11 +68,11 @@
 }
 
 .text-field {
-    -fx-background-color: #eeeeee;
+    -fx-background-color: #ffffff;
     -fx-prompt-text-fill: #666666;
 }
 .text-field:focused {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #e2f2ff;
 }
 
 .combo-box {
@@ -181,4 +181,24 @@
 
 .radio-button{
 	-fx-text-fill: #ffffff;
+}
+
+
+.radio-button .radio {
+    -fx-background-color: white;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+.radio-button .radio:selected,
+.radio-button -radio:armed,
+.radio-button -radio:determinate,
+.radio-button -radio:indeterminate  {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-padding: 6px;
 }

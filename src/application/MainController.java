@@ -40,30 +40,13 @@ import listobjects.Medication;
 
 public class MainController implements Initializable {
 
-    @FXML private Label homeTimeLabel;
-    @FXML private Label homeDateLabel;
-    
-    @FXML private Button newButton;
-    @FXML private Button editButton;
-    @FXML private Button deleteButton;
-        
-    @FXML private TableColumn<Medication, String> colHomeTime;
-    @FXML private TableColumn<Medication, String> colHomeName;
-    @FXML private TableColumn<Medication, String> colHomeDose;
-    @FXML private TableColumn<Medication, String> colHomeStatus;
-    @FXML private TableColumn<Medication, String     > colMyDose;
-    @FXML private TableColumn<Medication, String     > colMyName;
-    @FXML private TableColumn<Medication, String     > colMyFrequency;
-    @FXML private TableColumn<Medication, String     > colMyTime;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryDate;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryTime;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryName;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryDose;
-    
-    @FXML private AnchorPane homePane;
-    
-    @FXML private TableView<Medication> homeTable;
-    @FXML private TableView<Medication> medicationTable;
+    @FXML private Label homeTimeLabel, homeDateLabel;
+    @FXML private Button newButton, editButton, deleteButton;   
+    @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus;
+    @FXML private TableColumn<Medication, String     > colMyDose, colMyName, colMyFrequency, colMyTime;
+    @FXML private TableColumn<HistoryEntry, String   > colHistoryDate, colHistoryTime, colHistoryName, colHistoryDose;
+    @FXML private AnchorPane homePane; 
+    @FXML private TableView<Medication> homeTable, medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
 
     /**
