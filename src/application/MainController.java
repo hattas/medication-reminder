@@ -5,10 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javax.swing.*;
+import java.util.TimerTask;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -48,7 +52,10 @@ public class MainController implements Initializable {
     @FXML private AnchorPane homePane; 
     @FXML private TableView<Medication> homeTable, medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
+    private Timer timer;
+    private Date todaysDate;
 
+    
     /**
      * initialize the controller class. runs when program starts
      */
@@ -56,9 +63,9 @@ public class MainController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		System.out.println("Initializing...");
 		
-		Date date = new Date();
+		todaysDate = new Date();
 		SimpleDateFormat dateSDF = new SimpleDateFormat("EEEE, MMMM d");
-		homeDateLabel.setText(dateSDF.format(date));
+		homeDateLabel.setText(dateSDF.format(todaysDate));
 		DigitalClock homeTimeLabel = new DigitalClock();
 		homeTimeLabel.setStyle("-fx-font-size: 32pt;");
 		homeTimeLabel.setMouseTransparent(true);
@@ -115,19 +122,40 @@ public class MainController implements Initializable {
 		colMyTime.setCellFactory(TextFieldTableCell.forTableColumn());
 		colMyFrequency.setCellFactory(TextFieldTableCell.forTableColumn());
 		
+		
+		// sets up timer and alarm system
+		timer = new Timer(1000, e -> {
+			Calendar cal = Calendar.getInstance();
+			int calMinutes = cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
+			try {
+				for (Medication medication : getTodaysMedications()) {
+					if (calMinutes == medication.getTimeInMinutes()) {
+						System.out.println(medication.getName());
+					}
+				}
+			} catch (FileNotFoundException e2) {
+				e2.printStackTrace();
+			}
+            //System.out.println(calMinutes);
+        });
+        timer.setRepeats(true);
+        timer.setInitialDelay(0);
+        timer.start();
+		
 		System.out.println("Done initializing.");
 	}
     
     /**
      * Creates list of medications to take today on the home list.
+     * Only adds medications whos frequency contains todays day ("Wed")
      * @throws FileNotFoundException 
      */
     private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
-    	for (Medication medication : getMedications()) {
-    		if (medication.getFrequency().toLowerCase().equals("daily"))
+    	SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); //day of week ex: "Wed"
+    	for (Medication medication : getMedications())
+    		if (medication.getFrequency().contains(simpleDateformat.format(todaysDate)))
     			todaysMedications.add(medication);
-    	}
     	return todaysMedications;
     }
     
@@ -334,6 +362,7 @@ public class MainController implements Initializable {
         historyTable.setItems(getHistoryEntries());
         historyTable.getSortOrder().add(colHistoryDate);
     }
-     
+
+	
 }
 

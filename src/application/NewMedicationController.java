@@ -1,16 +1,19 @@
 package application;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 import listobjects.Medication;
 
@@ -22,68 +25,79 @@ public class NewMedicationController implements Initializable{
 	@FXML private TextField addNameField;
 	@FXML private TextField addDoseField;
 	@FXML private TextField addHourField;
-	@FXML private TextField addMinuteField;
-	
-	@FXML private RadioButton sunday, monday, tuesday, wednesday, thursday, friday, saturday;
+	@FXML private TextField addMinuteField;	
+	@FXML private RadioButton amButton, pmButton, sunday, monday, tuesday, wednesday, thursday, friday, saturday;
+    @FXML private ComboBox<String> hourComboBox, minuteComboBox;
 
-	
-    @FXML private ChoiceBox<String> amPmChoiceBox;
-
-	boolean addButtonClicked = false;
+	boolean addButtonClicked = false; // boolean value for whether the 'add' button is clicked
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		ToggleGroup group=new ToggleGroup();
+		amButton.setToggleGroup(group);
+		pmButton.setToggleGroup(group);
+		amButton.setSelected(true);
+		
 		label.setVisible(false);
-		amPmChoiceBox.setItems(FXCollections.observableArrayList("AM","PM"));
-		amPmChoiceBox.getSelectionModel().selectFirst();
+		
+		hourComboBox.setItems(FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12"));
+		hourComboBox.getSelectionModel().selectFirst();
+		hourComboBox.setTooltip(new Tooltip("Hour"));
+		
+		ArrayList<String> hoursList = new ArrayList<String>();
+		for (int i = 0; i < 60; i++)
+			hoursList.add(String.format("%02d\n", i));
+		minuteComboBox.setItems(FXCollections.observableArrayList(hoursList));
+		minuteComboBox.getSelectionModel().selectFirst();
+		minuteComboBox.setTooltip(new Tooltip("Minutes"));
+
 	}
 	
+	/**
+	 * Used by the main controller to get the medicaiton that was just added by the user, after the program is closed.
+	 * @return
+	 */
     public Medication getMedication() {
-        return new Medication(addNameField.getText(),addHourField.getText()+":"+addMinuteField.getText()+" "+amPmChoiceBox.getSelectionModel().getSelectedItem(),
+    	// public Medication(String name, String time, String frequency, String dose, String status) {
+        return new Medication(addNameField.getText(),getTimeInMinutes(),
         		getFrequency(),addDoseField.getText(),"Not Taken");
     }
-	
-    public boolean addButtonIsClicked() {
+	  
+    /**
+     * used by the MainController only
+     * @return whether the add button was clicked upon close or not.
+     */
+	public boolean addButtonIsClicked() {
     	return addButtonClicked;
     }
     
-    
+    /**
+     * checks to make sure fields are filled out properly so user can't break the program.
+     * if everything is, boolean is set to true to tell MainController that the add button was clicked upon close.
+     */
 	@FXML
 	private void addButtonClick() {
-		if(allFieldsFilledOut()) {
-			int hour, minute;
-			
-			try { minute = Integer.parseInt(addMinuteField.getText()); } 
-			catch (NumberFormatException e) { minute = -1; }
-			
-			try { hour = Integer.parseInt(addHourField.getText()); } 
-			catch (NumberFormatException e) { hour = -1; }
-			
-			if (hour == -1 || minute == -1) {
-				label.setText("Hour/minutes must be numbers.");
-				label.setVisible(true);
-			}
-			else if (hour < 1 || hour > 12) {
-				label.setText("Hour must be between 1 and 12.");
-				label.setVisible(true);
-			}
-			else if (minute < 0 || minute > 59) {
-				label.setText("Minute must be between 00 and 59.");
-				label.setVisible(true);
-			}
-			else {
+		if (addNameField.getText().equals("") || addDoseField.getText().equals("")) {
+			label.setText("Please fill out all fields.");
+			label.setVisible(true);
+		}
+		else if ((addNameField.getText() + addDoseField.getText()).contains(";")) {
+			label.setText("Text cannot contain \";\"");
+			label.setVisible(true);
+		}
+		else if (!dayIsPicked()) {
+			label.setText("Pick one or more days.");
+			label.setVisible(true);
+		}
+		else {
 			addButtonClicked = true;
 			Stage stage = (Stage) cancelButton.getScene().getWindow();
 			stage.close();
-			}
-		}
-		else {
-			label.setVisible(true);
 		}
 	}
 	
 	/**
-	 * exits out of popup
+	 * exits out of popup without adding the med (same as pressing X to close)
 	 */
 	@FXML
 	private void cancelButtonClick() {
@@ -92,6 +106,9 @@ public class NewMedicationController implements Initializable{
 		addButtonClicked = false;
 	}
 	
+	/**
+	 * selects all days of the week radio buttons
+	 */
 	@FXML
 	private void selectAllButtonClick() {
 		sunday.setSelected(true);
@@ -103,32 +120,46 @@ public class NewMedicationController implements Initializable{
 		saturday.setSelected(true);
 	}
 	
+	/**
+	 * 
+	 * @return converts the days selected into a string with all days as 3 letters each
+	 */
 	private String getFrequency() {
 		String string = new String();
-		if (sunday.isSelected()) string += "sun";
-		if (monday.isSelected()) string += "mon";
-		if (tuesday.isSelected()) string += "tue";
-		if (wednesday.isSelected()) string += "wed";
-		if (thursday.isSelected()) string += "thu";
-		if (friday.isSelected()) string += "fri";
-		if (saturday.isSelected()) string += "sat";
+		if (sunday.isSelected())    string += "Sun";
+		if (monday.isSelected())    string += "Mon";
+		if (tuesday.isSelected())   string += "Tue";
+		if (wednesday.isSelected()) string += "Wed";
+		if (thursday.isSelected())  string += "Thu";
+		if (friday.isSelected())    string += "Fri";
+		if (saturday.isSelected())  string += "Sat";
 		return string;
 	}
 	
-	private boolean allFieldsFilledOut() {
-		if (    !addNameField.getText().equals("") && 
-				!addDoseField.getText().equals("") &&
-				!addMinuteField.getText().equals("") && 
-				!addHourField.getText().equals("") && (
-				sunday.isSelected() ||
+	/**
+	 * 
+	 * @return makes sure that at least one day is selected
+	 */
+	private boolean dayIsPicked() {
+		if (    sunday.isSelected() ||
 				monday.isSelected() ||
 				tuesday.isSelected() ||
 				wednesday.isSelected() ||
 				thursday.isSelected() ||
 				friday.isSelected() ||
-				saturday.isSelected() ))
+				saturday.isSelected() )
 			return true;
 		else return false;
+	}
+	
+	/**
+	 * @return time converted to minutes 2:02 AM -> 122
+	 */
+    private String getTimeInMinutes() {
+		int hours = Integer.parseInt(hourComboBox.getValue());
+		int minutes = Integer.parseInt(minuteComboBox.getValue());
+		if (amButton.isSelected()) return "" + (hours * 60 + minutes);
+		else return "" + ((hours + 12) * 60 + minutes);
 	}
 	
 }

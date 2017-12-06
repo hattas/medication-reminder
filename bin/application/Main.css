@@ -30,6 +30,7 @@
 	-fx-text-fill: #ffffff;
 }
 
+
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
@@ -63,9 +64,11 @@
      -fx-border-width: 0;
 }
 
+
 .line{
 	-fx-stroke: #ffffff;
 }
+
 
 .text-field {
     -fx-background-color: #ffffff;
@@ -75,9 +78,6 @@
     -fx-background-color: #e2f2ff;
 }
 
-.combo-box {
-	-fx-background-color: #eeeeee;
-}
 
 .table-view{
    -fx-background-color: transparent;
@@ -91,7 +91,6 @@
 }
 .table-view .column-header-background .label{
     -fx-background-color: transparent;
-    -fx-text-fill: white;
 }
 .table-view .column-header,
 .table-view .filler {
@@ -108,10 +107,9 @@
 }
 .table-row-cell:selected {
     -fx-background-color: #9bd2ff;
-    -fx-table-cell-border-color: transparent;
-    -fx-text-fill: black;
-    
+    -fx-table-cell-border-color: transparent; 
 }
+
 .table-view > .virtual-flow > .scroll-bar:vertical,
 .table-view > .virtual-flow > .scroll-bar:vertical > .track,
 .table-view > .virtual-flow > .scroll-bar:vertical > .track-background,
@@ -153,37 +151,9 @@
 }
 
 
-/* Background color of the whole context menu*/
-.choice-box .context-menu { -fx-background-color: #202020; }
-/* Focused item background color in the list*/
-.choice-box .menu-item:focused { -fx-background-color: #9bd2ff; }
-/* Text color of non-focused items in the list*/
-.choice-box .menu-item > .label { -fx-text-fill: white; }
-/* Text color of focused item in the list*/
-.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
-
-/* Background color of the control itself */
-.choice-box {
-  -fx-background-color: linear-gradient(#555555, #5a5a5a);
-  -fx-mark-color: #9bd2ff;
-  -fx-background-radius: 5;
-}
-
-/* Selected item text color on the control itself */
-.choice-box > .label { -fx-text-fill: white; }
-
-.choice-box:hover{
-	-fx-background-color: linear-gradient(#7a7a7a, #757575);
-}
-.choice-box:pressed{
-	-fx-background-color: linear-gradient(#9a9a9a, #959595);
-}
-
 .radio-button{
 	-fx-text-fill: #ffffff;
 }
-
-
 .radio-button .radio {
     -fx-background-color: white;
     -fx-background-image: null;
@@ -197,8 +167,55 @@
     -fx-background-color: white;
     -fx-background-image: null;
 }
-
 .radio-button .dot {
     -fx-background-radius: 15px;
     -fx-padding: 6px;
+}
+
+
+/* Background color of the control itself */
+.combo-box {
+  -fx-background-color: linear-gradient(#555555, #5a5a5a);
+  -fx-mark-color: #9bd2ff;
+  -fx-background-radius: 5;
+  -fx-text-fill: #ffffff;
+}
+.combo-box .list-cell {
+	-fx-text-fill: white;
+ }
+.combo-box:hover{
+	-fx-background-color: linear-gradient(#7a7a7a, #757575);
+}
+.combo-box:pressed{
+	-fx-background-color: linear-gradient(#9a9a9a, #959595);
+}
+.combo-box-popup .list-view,
+.combo-box-popup .list-view .list-cell {
+	-fx-background-color: #202020;
+	-fx-text-fill: white;
+ }
+ .combo-box-popup .list-view .list-cell:hover {
+	-fx-background-color: #9bd2ff;
+	-fx-text-fill: black;
+ }
+.combo-box  .scroll-bar,
+.combo-box  .scroll-bar > .track,
+.combo-box  .scroll-bar > .track-background,
+.combo-box  .scroll-bar,
+.combo-box  .scroll-bar > .track,
+.combo-box  .scroll-bar > .track-background {
+    -fx-background-color: #202020;
+}
+.combo-box .scroll-bar > .thumb {
+	-fx-background-color: linear-gradient(#656565, #555555);
+}
+.combo-box  .scroll-bar > .thumb:hover {
+	-fx-background-color: linear-gradient(#858585, #757575);
+}
+.combo-box  .scroll-bar > .thumb:pressed {
+	-fx-background-color: linear-gradient(#a5a5a5, #959595);	
+}
+.combo-box  .scroll-bar > .increment-button, 
+.combo-box  .scroll-bar > .decrement-button {
+    -fx-opacity: 0;
 }

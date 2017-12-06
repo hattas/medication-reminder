@@ -1,3 +1,4 @@
 date;time;name;dose
 the date;the time;today;today
 the date;the time;today;todaythe date;the time;Tylenol;2, 10 mg
+the date;the time;Advil;2, 40 mg

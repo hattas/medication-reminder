@@ -10,7 +10,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Medication {
 	
 	private SimpleStringProperty name  = new SimpleStringProperty("");
-	private SimpleStringProperty time = new SimpleStringProperty("");
+	private SimpleStringProperty time = new SimpleStringProperty("");	// time is in minutes. 122 = 2:02 AM
 	private SimpleStringProperty frequency = new SimpleStringProperty("");
 	private SimpleStringProperty dose = new SimpleStringProperty("");
 	private SimpleStringProperty status = new SimpleStringProperty("");
@@ -36,9 +36,17 @@ public class Medication {
 		this.name.set(name);
 	}
 	
-	// time of day to take med, type TBD, "14:30"
+	// converts time in mins to a displayable digital time.
 	public String getTime() {
-		return time.get();
+		int totalMinutes = Integer.parseInt(time.get()) % 1440;
+		int hours    = (totalMinutes / 60) % 12;
+		if (hours == 0) hours = 12;
+		int minutes  = totalMinutes % 60;
+		System.out.println("hours: " + hours + "\tminutes: " + minutes + " totalMinutes: " + totalMinutes);
+		if (totalMinutes >= 720)
+			return "" + hours + ":" + String.format("%02d", minutes) + " PM";
+		else
+			return "" + hours + ":" + String.format("%02d", minutes) + " AM";
 	}
 	public void setTime(String time) {
 		this.time.set(time);
@@ -54,7 +62,18 @@ public class Medication {
 	
 	// how often med is taken, String, "Weekly" "Daily" etc.
 	public String getFrequency() {
-		return frequency.get();
+		int numDays = 0;
+		String day = "";
+		if (frequency.get().contains("Sun")) {day = "Sunday";   numDays++;}
+		if (frequency.get().contains("Mon")) {day = "Monday";   numDays++;}
+		if (frequency.get().contains("Tue")) {day = "Tuesday";  numDays++;}
+		if (frequency.get().contains("Wed")) {day = "Wednesday";numDays++;}
+		if (frequency.get().contains("Thu")) {day = "Thursday"; numDays++;}
+		if (frequency.get().contains("Fri")) {day = "Friday";   numDays++;}
+		if (frequency.get().contains("Sat")) {day = "Saturday"; numDays++;}
+		if (numDays == 7) return "Daily";
+		else if (numDays > 1) return "Multiple";
+		else return day;
 	}
 	public void setFrequency(String frequency) {
 		this.frequency.set(frequency);
@@ -70,4 +89,7 @@ public class Medication {
 			this.status.set("Not Taken");
 	}
 	
+	public int getTimeInMinutes() {
+		return Integer.parseInt(time.get());
+	}
 }

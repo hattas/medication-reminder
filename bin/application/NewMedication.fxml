@@ -23,25 +23,31 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Name:" />
             <Label text="Dose:" GridPane.rowIndex="1" />
             <Label text="Time of day:" GridPane.rowIndex="2" />
-            <TextField fx:id="addNameField" minHeight="-Infinity" prefHeight="30.0" promptText="Advil, Tylenol, etc." GridPane.columnIndex="1" />
-            <TextField fx:id="addDoseField" minHeight="-Infinity" prefHeight="30.0" promptText="200 mg, etc." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="addNameField" minHeight="-Infinity" prefHeight="35" promptText="Advil, Tylenol, etc." GridPane.columnIndex="1" />
+            <TextField fx:id="addDoseField" minHeight="-Infinity" prefHeight="35" promptText="200 mg, etc." GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField fx:id="addHourField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="50.0" />
+                        <ComboBox fx:id="hourComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35" prefWidth="85.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="10.0" text=":" />
-                        <TextField fx:id="addMinuteField" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="50.0" />
-                        <ChoiceBox fx:id="amPmChoiceBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="75.0" />
+                        <ComboBox fx:id="minuteComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35" prefWidth="85.0" />
                      </children>
                   </HBox>
                </children>
             </AnchorPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <RadioButton fx:id="amButton" mnemonicParsing="false" text="AM" />
+                  <RadioButton fx:id="pmButton" mnemonicParsing="false" text="PM" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0">
