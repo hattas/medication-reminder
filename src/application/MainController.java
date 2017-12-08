@@ -5,15 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javax.swing.*;
-import java.util.TimerTask;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -29,16 +31,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import listobjects.HistoryEntry;
 import listobjects.Medication;
 
@@ -73,79 +73,81 @@ public class MainController implements Initializable {
 		AnchorPane.setLeftAnchor(homeTimeLabel, 20.0);
 		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
 		homePane.getChildren().addAll(homeTimeLabel);
-				
-		colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
-		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
-		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);	
-		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
-		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
 		
-		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
-		colMyName.setSortType(TableColumn.SortType.ASCENDING);
-		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
-		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
-		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
-		
-		colHistoryDate.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
-		colHistoryDate.setSortType(TableColumn.SortType.ASCENDING);
-		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
-		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
-		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
+		setCellValueFactories();
 		
 		try {
 			homeTable.setItems(getTodaysMedications());
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}
-
-		try {
 			medicationTable.setItems(getMedications());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		try {
 			historyTable.setItems(getHistoryEntries());
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+		} catch (FileNotFoundException e1) { e1.printStackTrace(); }
+
 		// sort tables
 		homeTable.getSortOrder().add(colHomeTime);
 		medicationTable.getSortOrder().add(colMyName);
 		historyTable.getSortOrder().add(colHistoryDate);
 
-		// make columns editable
-		medicationTable.setEditable(true);
-		colMyName.setCellFactory(TextFieldTableCell.forTableColumn());
-		colMyDose.setCellFactory(TextFieldTableCell.forTableColumn());
-		colMyTime.setCellFactory(TextFieldTableCell.forTableColumn());
-		colMyFrequency.setCellFactory(TextFieldTableCell.forTableColumn());
-		
-		
-		// sets up timer and alarm system
-		timer = new Timer(1000, e -> {
-			Calendar cal = Calendar.getInstance();
-			int calMinutes = cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
-			try {
-				for (Medication medication : getTodaysMedications()) {
-					if (calMinutes == medication.getTimeInMinutes()) {
-						System.out.println(medication.getName());
-					}
-				}
-			} catch (FileNotFoundException e2) {
-				e2.printStackTrace();
-			}
-            //System.out.println(calMinutes);
-        });
-        timer.setRepeats(true);
-        timer.setInitialDelay(0);
-        timer.start();
+		startTimer();
 		
 		System.out.println("Done initializing.");
 	}
-    
-    /**
+	
+	private void startTimer() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), a -> {
+			Calendar cal = Calendar.getInstance();
+			if (cal.get(Calendar.SECOND) == 0) {	// runs once per minute to check if time matches any medications.
+				int calMinutes = cal.get(Calendar.HOUR_OF_DAY) * 60 + cal.get(Calendar.MINUTE);
+				ObservableList<Medication> allMedications;
+		    	allMedications = medicationTable.getItems();
+				for (Medication medication : allMedications) {
+					if (/*!medication.getStatus().equals("Taken") && */calMinutes == medication.getTimeInMinutes()) {
+						try {
+							FXMLLoader loader = new FXMLLoader();
+					    	loader.setLocation(getClass().getResource("Alarm.fxml"));    
+						    loader.load();
+						    
+						    AlarmController display = loader.getController();
+						    System.out.println("displaying window....");	//TODO delete
+						    Parent parent = loader.getRoot();
+						    Stage stage = new Stage();
+						    Scene scene = new Scene(parent);
+						    scene.getStylesheets().add("application/Main.css");
+						    stage.setTitle("Medication Alert");
+						    stage.setScene(scene);
+						    stage.initModality(Modality.APPLICATION_MODAL);
+						    display.setAlarmDose(medication.getDose());
+						    display.setAlarmName(medication.getName());
+						    stage.show();
+						    
+
+						    if (display.takeButtonIsClicked()) {
+						    	allMedications.remove(medication);
+						    	medication.setStatus("Taken");
+						    	allMedications.add(medication);
+						    }
+					    	
+						    rewriteMedications(allMedications);
+						    addHistoryEntry(medication);
+						    
+					    	medicationTable.setItems(getMedications());
+							medicationTable.getSortOrder().add(colMyName);
+							
+					    	homeTable.setItems(getTodaysMedications());
+							homeTable.getSortOrder().add(colHomeTime);
+						} catch (IOException e1) {
+							System.out.println("catching");
+							e1.printStackTrace();
+						}
+					}
+				}
+			}
+            System.out.println(cal.get(Calendar.SECOND));  //TODO remove this
+		}));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
+
+	/**
      * Creates list of medications to take today on the home list.
      * Only adds medications whos frequency contains todays day ("Wed")
      * @throws FileNotFoundException 
@@ -153,8 +155,9 @@ public class MainController implements Initializable {
     private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
     	SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); //day of week ex: "Wed"
+    	System.out.println(simpleDateformat.format(todaysDate));
     	for (Medication medication : getMedications())
-    		if (medication.getFrequency().contains(simpleDateformat.format(todaysDate)))
+    		if (medication.getDays().contains(simpleDateformat.format(todaysDate)))
     			todaysMedications.add(medication);
     	return todaysMedications;
     }
@@ -168,7 +171,7 @@ public class MainController implements Initializable {
     	Scanner scanner = new Scanner(new File("src\\library\\medications.txt"));
     	while (scanner.hasNextLine()) {
     		String[] nextLine = scanner.nextLine().split(";");
-    		medications.add(new Medication(nextLine[0],nextLine[1],nextLine[2],nextLine[3],nextLine[4]));
+    		medications.add(new Medication(nextLine[0],Integer.parseInt(nextLine[1]),nextLine[2],nextLine[3],nextLine[4]));
     	}
     	scanner.close();
     	return medications;
@@ -189,67 +192,7 @@ public class MainController implements Initializable {
     	scanner.close();
     	return historyEntry;
     }
-
-    /**
-     * Events for editing cells
-     * @throws IOException 
-     */
-    public void changeMyNameCellEvent(CellEditEvent editedCell) throws IOException {
-    	ObservableList<Medication> allMedications = medicationTable.getItems();
-    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
-    	allMedications.remove(medicationSelected);
-    	medicationSelected.setName(editedCell.getNewValue().toString());
-    	allMedications.add(medicationSelected);
-    	rewriteMedications(allMedications);
-    		
-    	medicationTable.setItems(getMedications());
-    	medicationTable.getSortOrder().add(colMyName);
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);	
-    }
-    
-    public void changeMyTimeCellEvent(CellEditEvent editedCell) throws IOException {
-    	ObservableList<Medication> allMedications = medicationTable.getItems();
-    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
-    	allMedications.remove(medicationSelected);
-    	medicationSelected.setTime(editedCell.getNewValue().toString());
-    	allMedications.add(medicationSelected);
-    	rewriteMedications(allMedications);
-    	
-    	medicationTable.setItems(getMedications());
-    	medicationTable.getSortOrder().add(colMyName);
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);	
-    }
-    
-    public void changeMyDoseCellEvent(CellEditEvent editedCell) throws IOException {
-    	ObservableList<Medication> allMedications = medicationTable.getItems();
-    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
-    	allMedications.remove(medicationSelected);
-    	medicationSelected.setDose(editedCell.getNewValue().toString());
-    	allMedications.add(medicationSelected);
-    	rewriteMedications(allMedications);
-    	   	
-    	medicationTable.setItems(getMedications());
-    	medicationTable.getSortOrder().add(colMyName);
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);	
-    }
-    
-    public void changeMyFrequencyCellEvent(CellEditEvent editedCell) throws IOException {
-    	ObservableList<Medication> allMedications = medicationTable.getItems();
-    	Medication medicationSelected = medicationTable.getSelectionModel().getSelectedItem();
-    	allMedications.remove(medicationSelected);
-    	medicationSelected.setFrequency(editedCell.getNewValue().toString());
-    	allMedications.add(medicationSelected);
-    	rewriteMedications(allMedications);
-    	  	
-    	medicationTable.setItems(getMedications());
-    	medicationTable.getSortOrder().add(colMyName);
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);	
-    }
-    
+  
     /**
      * set satus of the medication to taken
 	 * @throws IOException 
@@ -262,7 +205,7 @@ public class MainController implements Initializable {
     	if (medicationSelected != null && !medicationSelected.getStatus().equals("Taken")) {
 	    	ObservableList<Medication> allMedications = homeTable.getItems();
 	    	allMedications.remove(medicationSelected);
-	    	medicationSelected.setStatus(true);
+	    	medicationSelected.setStatus("Taken");
 	    	allMedications.add(medicationSelected);
 	    	rewriteMedications(allMedications);
 	    	 
@@ -301,7 +244,7 @@ public class MainController implements Initializable {
 	    	File newFile = new File("src\\library\\medications.txt");
 	    	FileWriter writer = new FileWriter(newFile, true);
 	        Medication med = display.getMedication(); 
-	        writer.write(med.getName()+";"+med.getTime()+";"+med.getFrequency()+";"+med.getDose()+";"+med.getStatus()+"\n");
+	        writer.write(med.getName()+";"+med.getTimeInMinutes()+";"+med.getDays()+";"+med.getDose()+";"+med.getStatus()+"\n");
 	        writer.close();
 	    }
     	
@@ -338,19 +281,25 @@ public class MainController implements Initializable {
     	File newFile = new File("src\\library\\medications.txt");
     	FileWriter writer = new FileWriter(newFile, false);
     	for (Medication med : allMedications) {
-    		writer.write(med.getName()+";"+med.getTime()+";"+med.getFrequency()+";"+med.getDose()+";"+med.getStatus()+"\n");
+    		writer.write(med.getName()+";"+med.getTimeInMinutes()+";"+med.getDays()+";"+med.getDose()+";"+med.getStatus()+"\n");
     	}
     	writer.close();
 	}
     
     private void addHistoryEntry(Medication med) throws IOException {
+    	
+    	Date datetime = new Date();
+    	SimpleDateFormat dateSDF = new SimpleDateFormat("M/d/yyyy");
+    	SimpleDateFormat timeSDF = new SimpleDateFormat("H:mm:ss a");
+    	
     	File newFile = new File("src\\library\\history.txt");
     	FileWriter writer = new FileWriter(newFile, true);
-    	writer.write("the date"+";"+"the time"+";"+med.getName()+";"+med.getDose()+"\n");
+    	writer.write(dateSDF.format(datetime)+";"+timeSDF.format(datetime)+";"+med.getName()+";"+med.getDose()+"\n");
     	writer.close();
     	
     	historyTable.setItems(getHistoryEntries());
     	historyTable.getSortOrder().add(colHistoryDate);
+    
     }    
     
     @FXML
@@ -362,7 +311,29 @@ public class MainController implements Initializable {
         historyTable.setItems(getHistoryEntries());
         historyTable.getSortOrder().add(colHistoryDate);
     }
-
+    
+    /**
+     * sets up colums for all 3 tables
+     */
+    private void setCellValueFactories() {
+    	colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
+		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);	
+		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
+		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
+		
+		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colMyName.setSortType(TableColumn.SortType.ASCENDING);
+		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
+		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
+		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
+		
+		colHistoryDate.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
+		colHistoryDate.setSortType(TableColumn.SortType.DESCENDING);
+		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
+		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
+		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
+    }
 	
 }
 

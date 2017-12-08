@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,10 +45,12 @@ public class NewMedicationController implements Initializable{
 		hourComboBox.getSelectionModel().selectFirst();
 		hourComboBox.setTooltip(new Tooltip("Hour"));
 		
-		ArrayList<String> hoursList = new ArrayList<String>();
-		for (int i = 0; i < 60; i++)
-			hoursList.add(String.format("%02d\n", i));
-		minuteComboBox.setItems(FXCollections.observableArrayList(hoursList));
+		minuteComboBox.setItems(FXCollections.observableArrayList("00","01","02","03","04","05","06","07","08","09",//TODO
+																  "10","11","12","13","14","15","16","17","18","19",
+																  "20","21","22","23","24","25","26","27","28","29",
+																  "30","31","32","33","34","35","36","37","38","39",
+																  "40","41","42","43","44","45","46","47","48","49",
+																  "50","51","52","53","54","55","56","57","58","59"));
 		minuteComboBox.getSelectionModel().selectFirst();
 		minuteComboBox.setTooltip(new Tooltip("Minutes"));
 
@@ -155,11 +158,21 @@ public class NewMedicationController implements Initializable{
 	/**
 	 * @return time converted to minutes 2:02 AM -> 122
 	 */
-    private String getTimeInMinutes() {
+    private int getTimeInMinutes() {
+    	System.out.println("hour " + hourComboBox.getValue()  + " minute " + minuteComboBox.getValue());
 		int hours = Integer.parseInt(hourComboBox.getValue());
 		int minutes = Integer.parseInt(minuteComboBox.getValue());
-		if (amButton.isSelected()) return "" + (hours * 60 + minutes);
-		else return "" + ((hours + 12) * 60 + minutes);
+		if (amButton.isSelected()) {
+			if (hours == 12)
+				return minutes;
+			return hours * 60 + minutes;
+		}
+		else {
+			if (hours == 12)
+				return hours + minutes;
+			return (hours + 12) * 60 + minutes;
+		}
 	}
+    
 	
 }

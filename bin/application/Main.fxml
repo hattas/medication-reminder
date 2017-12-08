@@ -95,10 +95,10 @@
         						<Label text="You have no medications. Click new to add one." />
     					   </placeholder>
                            <columns>
-                              <TableColumn fx:id="colMyName" minWidth="135" onEditCommit="#changeMyNameCellEvent" prefWidth="135" text="Name" />
-                              <TableColumn fx:id="colMyTime" minWidth="135" onEditCommit="#changeMyTimeCellEvent" prefWidth="135" text="Time" />
-                              <TableColumn fx:id="colMyDose" minWidth="135" onEditCommit="#changeMyDoseCellEvent" prefWidth="135" text="Dose" />
-                              <TableColumn fx:id="colMyFrequency" minWidth="135" onEditCommit="#changeMyFrequencyCellEvent" prefWidth="135" text="Frequency" />
+                              <TableColumn fx:id="colMyName" minWidth="135"  prefWidth="135" text="Name" />
+                              <TableColumn fx:id="colMyTime" minWidth="135"  prefWidth="135" text="Time" />
+                              <TableColumn fx:id="colMyDose" minWidth="135" prefWidth="135" text="Dose" />
+                              <TableColumn fx:id="colMyFrequency" minWidth="135"  prefWidth="135" text="Frequency" />
                            </columns>
                         </TableView>
                      </children>
