@@ -46,13 +46,12 @@ public class MainController implements Initializable {
 
     @FXML private Label homeTimeLabel, homeDateLabel;
     @FXML private Button newButton, editButton, deleteButton;   
-    @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus;
+    @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus, colHomeOrder;
     @FXML private TableColumn<Medication, String     > colMyDose, colMyName, colMyFrequency, colMyTime;
     @FXML private TableColumn<HistoryEntry, String   > colHistoryDate, colHistoryTime, colHistoryName, colHistoryDose;
     @FXML private AnchorPane homePane; 
     @FXML private TableView<Medication> homeTable, medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
-    private Timer timer;
     private Date todaysDate;
 
     
@@ -92,7 +91,7 @@ public class MainController implements Initializable {
 		System.out.println("Done initializing.");
 	}
 	
-	private void startTimer() {
+	private void startTimer(){
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), a -> {
 			Calendar cal = Calendar.getInstance();
 			if (cal.get(Calendar.SECOND) == 0) {	// runs once per minute to check if time matches any medications.
@@ -101,31 +100,38 @@ public class MainController implements Initializable {
 		    	allMedications = medicationTable.getItems();
 				for (Medication medication : allMedications) {
 					if (/*!medication.getStatus().equals("Taken") && */calMinutes == medication.getTimeInMinutes()) {
-						try {
-							FXMLLoader loader = new FXMLLoader();
-					    	loader.setLocation(getClass().getResource("Alarm.fxml"));    
-						    loader.load();
-						    
-						    AlarmController display = loader.getController();
-						    System.out.println("displaying window....");	//TODO delete
-						    Parent parent = loader.getRoot();
-						    Stage stage = new Stage();
-						    Scene scene = new Scene(parent);
-						    scene.getStylesheets().add("application/Main.css");
-						    stage.setTitle("Medication Alert");
-						    stage.setScene(scene);
-						    stage.initModality(Modality.APPLICATION_MODAL);
-						    display.setAlarmDose(medication.getDose());
-						    display.setAlarmName(medication.getName());
-						    stage.show();
-						    
-
+						FXMLLoader loader = new FXMLLoader();
+				    	loader.setLocation(getClass().getResource("Alarm.fxml"));    
+					    try {
+							loader.load();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					    
+					    AlarmController display = loader.getController();
+					    System.out.println("displaying window....");	//TODO delete
+					    Parent parent = loader.getRoot();
+					    Stage stage = new Stage();
+					    Scene scene = new Scene(parent);
+					    scene.getStylesheets().add("application/Main.css");
+					    stage.setTitle("Medication Alert");
+					    stage.setScene(scene);
+					    stage.initModality(Modality.APPLICATION_MODAL);
+					    display.setAlarmDose(medication.getDose());
+					    display.setAlarmName(medication.getName());
+					    
+					    stage.show();
+					    
+					    stage.setOnHidden(event -> {
+						    System.out.println(display.takeButtonIsClicked());
 						    if (display.takeButtonIsClicked()) {
 						    	allMedications.remove(medication);
 						    	medication.setStatus("Taken");
+						    	System.out.println(medication.getStatus());
 						    	allMedications.add(medication);
 						    }
 					    	
+						    try {
 						    rewriteMedications(allMedications);
 						    addHistoryEntry(medication);
 						    
@@ -134,10 +140,10 @@ public class MainController implements Initializable {
 							
 					    	homeTable.setItems(getTodaysMedications());
 							homeTable.getSortOrder().add(colHomeTime);
-						} catch (IOException e1) {
-							System.out.println("catching");
-							e1.printStackTrace();
-						}
+						    } catch (IOException e) {
+						    	e.printStackTrace();
+						    }
+					    });
 					}
 				}
 			}
@@ -318,9 +324,11 @@ public class MainController implements Initializable {
     private void setCellValueFactories() {
     	colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
-		colHomeTime.setSortType(TableColumn.SortType.ASCENDING);	
 		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
 		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
+		colHomeOrder.setCellValueFactory(new PropertyValueFactory<Medication, String>("order"));
+		colHomeOrder.setSortType(TableColumn.SortType.DESCENDING);	
+
 		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colMyName.setSortType(TableColumn.SortType.ASCENDING);

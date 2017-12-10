@@ -1,3 +1,8 @@
-Ibuprofen;700;MonTueWedThuFri;100 mg;Not Taken
-Advil;1000;SunMonTueWedThuFriSat;400 mg;Not Taken
-Tylenol;800;MonWedFri;200 mg;Taken
+sdf;1400;SunMonTueWedThuFriSat;sdf;Taken
+sdf;800;SunMonTueWedThuFriSat;sdf;Taken
+sdf;700;SunMonTueWedThuFriSat;sdf;Taken
+sdf;500;SunMonTueWedThuFriSat;sdf;Taken
+sdf;700;SunMonTueWedThuFriSat;sdf;Taken
+sdf;500;SunMonTueWedThuFriSat;sdf;Taken
+sdf;200;SunMonTueWedThuFriSat;sdf;Taken
+sdf;100;SunMonTueWedThuFriSat;sdf;Taken

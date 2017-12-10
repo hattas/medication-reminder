@@ -14,6 +14,7 @@ public class Medication {
 	private SimpleStringProperty dose = new SimpleStringProperty("");
 	private SimpleStringProperty status = new SimpleStringProperty("");
 	private int time = -1;	// time is in minutes. 122 = 2:02 AM
+	private SimpleStringProperty order = new SimpleStringProperty("");
 
 
 	public Medication() {
@@ -95,5 +96,9 @@ public class Medication {
 	
 	public String getDays() {
 		return frequency.get();
+	}
+	
+	public String getOrder() {
+		return ""+time;
 	}
 }

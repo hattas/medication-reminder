@@ -69,6 +69,7 @@
                               <TableColumn fx:id="colHomeTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colHomeDose" minWidth="135" prefWidth="135" text="Dose" />
                               <TableColumn fx:id="colHomeStatus" minWidth="135" prefWidth="135" text="Status" />
+                              <TableColumn fx:id="colHomeOrder" minWidth="0" prefWidth="0" text="" />   
                           </columns>
                         </TableView>
                      </children>

@@ -1,26 +1,29 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class AlarmController {
 
+	@FXML private Button takeButton, noButton;
     @FXML private Label alarmName, alarmDose;
-    private boolean takeButtonClicked = false;
+    boolean takeButtonClicked = false;
+    
     
     @FXML
     void takeButtonClick() {
-    	Stage stage = (Stage) alarmName.getScene().getWindow();
-		stage.close();
     	takeButtonClicked = true;
+    	Stage stage = (Stage) takeButton.getScene().getWindow();
+		stage.close();
     }
     
     @FXML
     void noButtonClick() {
-    	Stage stage = (Stage) alarmName.getScene().getWindow();
-		stage.close();
-		takeButtonClicked = false;
+    	takeButtonClicked = false;
+    	Stage stage = (Stage) noButton.getScene().getWindow();
+		stage.close();	
     }
     
     public boolean takeButtonIsClicked() {

@@ -21,12 +21,8 @@ import listobjects.Medication;
 public class NewMedicationController implements Initializable{
 	
 	@FXML private Label label;
-	@FXML private Button addButton;
-	@FXML private Button cancelButton;
-	@FXML private TextField addNameField;
-	@FXML private TextField addDoseField;
-	@FXML private TextField addHourField;
-	@FXML private TextField addMinuteField;	
+	@FXML private Button addButton, cancelButton;
+	@FXML private TextField addNameField, addDoseField, addHourField, addMinuteField;
 	@FXML private RadioButton amButton, pmButton, sunday, monday, tuesday, wednesday, thursday, friday, saturday;
     @FXML private ComboBox<String> hourComboBox, minuteComboBox;
 
@@ -159,7 +155,6 @@ public class NewMedicationController implements Initializable{
 	 * @return time converted to minutes 2:02 AM -> 122
 	 */
     private int getTimeInMinutes() {
-    	System.out.println("hour " + hourComboBox.getValue()  + " minute " + minuteComboBox.getValue());
 		int hours = Integer.parseInt(hourComboBox.getValue());
 		int minutes = Integer.parseInt(minuteComboBox.getValue());
 		if (amButton.isSelected()) {

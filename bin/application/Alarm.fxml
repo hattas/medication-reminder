@@ -13,8 +13,8 @@
             <Label fx:id="alarmDose" text="Dose description" />
             <HBox alignment="CENTER" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#takeButtonClick" text="Take!" />
-                  <Button mnemonicParsing="false" onAction="#noButtonClick" text="I'll take it when I want" />
+                  <Button fx:id="takeButton" mnemonicParsing="false" onAction="#takeButtonClick" text="Take!" />
+                  <Button fx:id="noButton" mnemonicParsing="false" onAction="#noButtonClick" text="I'll take it when I want" />
                </children>
             </HBox>
          </children>
