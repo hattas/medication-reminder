@@ -218,6 +218,9 @@ public class MainController implements Initializable {
 	    	homeTable.setItems(getTodaysMedications());
 			homeTable.getSortOrder().add(colHomeTime);
 			
+			medicationTable.setItems(getTodaysMedications());
+			medicationTable.getSortOrder().add(colHomeTime);
+			
 			addHistoryEntry(medicationSelected);
     	}
 		
@@ -263,7 +266,7 @@ public class MainController implements Initializable {
     
 
 	/**
-     * creates pop up to add new medication!
+     * creates pop up to edit existing medication!
 	 * @throws IOException 
      */
     @FXML
@@ -272,45 +275,53 @@ public class MainController implements Initializable {
     	ObservableList<Medication> allMedications;
     	allMedications = medicationTable.getItems();
     	Medication editedMedication = medicationTable.getSelectionModel().getSelectedItem();
-    	//allMedications.remove(removedMedication);
-    	//rewriteMedications(allMedications);
     	
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("NewMedication.fxml"));    
-	    loader.load();
+    	
 	    
-	    NewMedicationController display = loader.getController();
-	    
-	    display.setDays(editedMedication.getDays());
-	    display.setName(editedMedication.getName());
-	    display.setDose(editedMedication.getDose());
-	    display.setTime(editedMedication.getTimeInMinutes());
-	    
-	    Parent parent = loader.getRoot();
-	    Stage stage = new Stage();
-	    Scene scene = new Scene(parent);
-	    scene.getStylesheets().add("application/Main.css");
-	    stage.setTitle("Add Medication");
-	    stage.setScene(scene);
-	    stage.initModality(Modality.APPLICATION_MODAL);
-	    stage.showAndWait();
-	    
+	    if (editedMedication != null) {
 
-	    if (display.addButtonIsClicked()) {
-	    	File newFile = new File("src\\library\\medications.txt");
-	    	FileWriter writer = new FileWriter(newFile, true);
-	        Medication med = display.getMedication(); 
-	        writer.write(med.getName()+";"+med.getTimeInMinutes()+";"+med.getDays()+";"+med.getDose()+";"+med.getStatus()+"\n");
-	        writer.close();
-	    }
-    	
-    	medicationTable.setItems(getMedications());
-		medicationTable.getSortOrder().add(colMyName);
+	    	FXMLLoader loader = new FXMLLoader();
+	    	loader.setLocation(getClass().getResource("NewMedication.fxml"));    
+		    loader.load();
+		    
+		    NewMedicationController display = loader.getController();
+	    	
+		    display.setDays(editedMedication.getDays());
+		    display.setName(editedMedication.getName());
+		    display.setDose(editedMedication.getDose());
+		    display.setTime(editedMedication.getTimeInMinutes());
+		    
+		    String oldStatus = editedMedication.getStatus();
+	    
+		    Parent parent = loader.getRoot();
+		    Stage stage = new Stage();
+		    Scene scene = new Scene(parent);
+		    scene.getStylesheets().add("application/Main.css");
+		    stage.setTitle("Add Medication");
+		    stage.setScene(scene);
+		    stage.initModality(Modality.APPLICATION_MODAL);
+		    stage.showAndWait();
+		    
+		    System.out.println(oldStatus);
+		    if (display.addButtonIsClicked()) {
+		    	allMedications.remove(editedMedication);
+		    	rewriteMedications(allMedications);
+		    	File newFile = new File("src\\library\\medications.txt");
+		    	FileWriter writer = new FileWriter(newFile, true);
+		        Medication med = display.getMedication(); 
+		        writer.write(med.getName()+";"+med.getTimeInMinutes()+";"+med.getDays()+";"+med.getDose()+";"+oldStatus+"\n");
+		        writer.close();
+		    }
+	    	
+		    medicationTable.setItems(getMedications());
+			medicationTable.getSortOrder().add(colMyName);
+			
+	    	homeTable.setItems(getTodaysMedications());
+			homeTable.getSortOrder().add(colHomeTime);
 		
-    	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);
+	    }
     }
-    
+ 
     
     /**
      * allows medications to be deleted.
