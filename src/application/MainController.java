@@ -322,7 +322,6 @@ public class MainController implements Initializable {
 	    }
     }
  
-    
     /**
      * allows medications to be deleted.
      * @throws IOException
