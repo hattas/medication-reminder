@@ -88,6 +88,7 @@
                         <HBox alignment="CENTER" prefHeight="100.0" spacing="100.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0">
                            <children>
                               <Button fx:id="newButton" mnemonicParsing="false" onAction="#newButtonClick" text="New" />
+                              <Button fx:id="editButton" mnemonicParsing="false" onAction="#editButtonClick" text="Edit" />
                               <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteButtonClick" text="Delete" />
                            </children>
                         </HBox>
@@ -96,10 +97,10 @@
         						<Label text="You have no medications. Click new to add one." />
     					   </placeholder>
                            <columns>
-                              <TableColumn fx:id="colMyName" minWidth="135"  prefWidth="135" text="Name" />
-                              <TableColumn fx:id="colMyTime" minWidth="135"  prefWidth="135" text="Time" />
+                              <TableColumn fx:id="colMyName" minWidth="135" prefWidth="135" text="Name" />
+                              <TableColumn fx:id="colMyTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colMyDose" minWidth="135" prefWidth="135" text="Dose" />
-                              <TableColumn fx:id="colMyFrequency" minWidth="135"  prefWidth="135" text="Frequency" />
+                              <TableColumn fx:id="colMyFrequency" minWidth="135" prefWidth="135" text="Frequency" />
                            </columns>
                         </TableView>
                      </children>

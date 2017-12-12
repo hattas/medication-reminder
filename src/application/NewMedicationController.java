@@ -169,5 +169,33 @@ public class NewMedicationController implements Initializable{
 		}
 	}
     
+    public void setName(String string) {
+    	addNameField.setText(string);
+    }
+    public void setDose(String string) {
+    	addDoseField.setText(string);
+    }
+    public void setDays(String string) {
+		if (string.contains("Sun"))    sunday.setSelected(true);
+		if (string.contains("Mon"))    monday.setSelected(true);
+		if (string.contains("Tue"))    tuesday.setSelected(true);
+		if (string.contains("Wed"))    wednesday.setSelected(true);
+		if (string.contains("Thu"))    thursday.setSelected(true);
+		if (string.contains("Fri"))    friday.setSelected(true);
+		if (string.contains("Sat"))    saturday.setSelected(true);
+    }
+    public void setTime(int time) {
+    	int totalMinutes = time % 1440;
+		int hours    = (totalMinutes / 60) % 12;
+		if (hours == 0) hours = 12;
+		int minutes  = totalMinutes % 60;
+		if (totalMinutes >= 720)
+			pmButton.setSelected(true);
+		else
+			amButton.setSelected(true);
+		hourComboBox.setValue(""+hours);
+		minuteComboBox.setValue(String.format("%02d", minutes));
+
+    }
 	
 }
