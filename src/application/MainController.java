@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+
 import javax.swing.*;
 
 import javafx.animation.Animation;
@@ -32,12 +33,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import listobjects.HistoryEntry;
 import listobjects.Medication;
@@ -45,10 +49,13 @@ import listobjects.Medication;
 public class MainController implements Initializable {
 
     @FXML private Label homeTimeLabel, homeDateLabel;
-    @FXML private Button newButton, editButton, deleteButton;   
-    @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus, colHomeOrder;
-    @FXML private TableColumn<Medication, String     > colMyDose, colMyName, colMyFrequency, colMyTime;
-    @FXML private TableColumn<HistoryEntry, String   > colHistoryDate, colHistoryTime, colHistoryName, colHistoryDose;
+    @FXML private Button newButton, editButton, deleteButton;  
+    // prefix "col" means column
+    @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus;
+    @FXML private TableColumn<Medication, Integer> colHomeOrder;
+    @FXML private TableColumn<Medication, String> colMyDose, colMyName, colMyFrequency, colMyTime;
+    @FXML private TableColumn<HistoryEntry, String> colHistoryDate, colHistoryTime, colHistoryName, colHistoryDose;
+    @FXML private TableColumn<HistoryEntry, Double> colHistoryOrder;
     @FXML private AnchorPane homePane; 
     @FXML private TableView<Medication> homeTable, medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
@@ -60,8 +67,9 @@ public class MainController implements Initializable {
      */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		System.out.println("Initializing...");
+		System.out.println("Initializing main window...");
 		
+		// set up labels to show the date and time.
 		todaysDate = new Date();
 		SimpleDateFormat dateSDF = new SimpleDateFormat("EEEE, MMMM d");
 		homeDateLabel.setText(dateSDF.format(todaysDate));
@@ -82,14 +90,40 @@ public class MainController implements Initializable {
 		} catch (FileNotFoundException e1) { e1.printStackTrace(); }
 
 		// sort tables
-		homeTable.getSortOrder().add(colHomeTime);
+		homeTable.getSortOrder().add(colHomeOrder);
 		medicationTable.getSortOrder().add(colMyName);
-		historyTable.getSortOrder().add(colHistoryDate);
+		historyTable.getSortOrder().add(colHistoryOrder);
 
 		startTimer();
 		
 		System.out.println("Done initializing.");
 	}
+	
+    /**
+     * sets up colums for all 3 tables
+     */
+    private void setCellValueFactories() {
+    	colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
+		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
+		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
+		colHomeOrder.setCellValueFactory(new PropertyValueFactory<Medication, Integer>("order"));
+		colHomeOrder.setSortType(TableColumn.SortType.ASCENDING);	
+
+		
+		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
+		colMyName.setSortType(TableColumn.SortType.ASCENDING);
+		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
+		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
+		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
+		
+		colHistoryDate.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
+		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
+		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
+		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
+		colHistoryOrder.setCellValueFactory(new PropertyValueFactory<HistoryEntry, Double>("order"));
+		colHistoryOrder.setSortType(TableColumn.SortType.DESCENDING);
+    }
 	
 	/**
 	 * Timer that updates every second.  Every minute, the timer checks if it matches any of the medication times.
@@ -126,11 +160,9 @@ public class MainController implements Initializable {
 					    stage.show();
 					    
 					    stage.setOnHidden(event -> {
-						    System.out.println(display.takeButtonIsClicked());
 						    if (display.takeButtonIsClicked()) {
 						    	allMedications.remove(medication);
 						    	medication.setStatus("Taken");
-						    	System.out.println(medication.getStatus());
 						    	allMedications.add(medication);
 						    }
 					    	
@@ -142,7 +174,7 @@ public class MainController implements Initializable {
 							medicationTable.getSortOrder().add(colMyName);
 							
 					    	homeTable.setItems(getTodaysMedications());
-							homeTable.getSortOrder().add(colHomeTime);
+					    	homeTable.getSortOrder().add(colHomeOrder);
 						    } catch (IOException e) {
 						    	e.printStackTrace();
 						    }
@@ -150,7 +182,6 @@ public class MainController implements Initializable {
 					}
 				}
 			}
-            System.out.println(cal.get(Calendar.SECOND));  //TODO remove this
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
@@ -164,7 +195,6 @@ public class MainController implements Initializable {
     private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
     	SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); //day of week ex: "Wed"
-    	System.out.println(simpleDateformat.format(todaysDate));
     	for (Medication medication : getMedications())
     		if (medication.getDays().contains(simpleDateformat.format(todaysDate)))
     			todaysMedications.add(medication);
@@ -219,7 +249,7 @@ public class MainController implements Initializable {
 	    	rewriteMedications(allMedications);
 	    	 
 	    	homeTable.setItems(getTodaysMedications());
-			homeTable.getSortOrder().add(colHomeTime);
+	    	homeTable.getSortOrder().add(colHomeOrder);
 			
 			medicationTable.setItems(getTodaysMedications());
 			medicationTable.getSortOrder().add(colHomeTime);
@@ -264,9 +294,8 @@ public class MainController implements Initializable {
 		medicationTable.getSortOrder().add(colMyName);
 		
     	homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);
-    }
-    
+    	homeTable.getSortOrder().add(colHomeOrder);
+    }    
 
 	/**
      * creates pop up to edit existing medication!
@@ -278,9 +307,7 @@ public class MainController implements Initializable {
     	ObservableList<Medication> allMedications;
     	allMedications = medicationTable.getItems();
     	Medication editedMedication = medicationTable.getSelectionModel().getSelectedItem();
-    	
-    	
-	    
+
 	    if (editedMedication != null) {
 
 	    	FXMLLoader loader = new FXMLLoader();
@@ -293,6 +320,7 @@ public class MainController implements Initializable {
 		    display.setName(editedMedication.getName());
 		    display.setDose(editedMedication.getDose());
 		    display.setTime(editedMedication.getTimeInMinutes());
+		    display.setEditButton();
 		    
 		    String oldStatus = editedMedication.getStatus();
 	    
@@ -300,12 +328,11 @@ public class MainController implements Initializable {
 		    Stage stage = new Stage();
 		    Scene scene = new Scene(parent);
 		    scene.getStylesheets().add("application/Main.css");
-		    stage.setTitle("Add Medication");
+		    stage.setTitle("Edit Medication");
 		    stage.setScene(scene);
 		    stage.initModality(Modality.APPLICATION_MODAL);
 		    stage.showAndWait();
 		    
-		    System.out.println(oldStatus);
 		    if (display.addButtonIsClicked()) {
 		    	allMedications.remove(editedMedication);
 		    	rewriteMedications(allMedications);
@@ -320,7 +347,7 @@ public class MainController implements Initializable {
 			medicationTable.getSortOrder().add(colMyName);
 			
 	    	homeTable.setItems(getTodaysMedications());
-			homeTable.getSortOrder().add(colHomeTime);
+	    	homeTable.getSortOrder().add(colHomeOrder);
 		
 	    }
     }
@@ -339,7 +366,7 @@ public class MainController implements Initializable {
     	
     	// update home tab tableview
 		homeTable.setItems(getTodaysMedications());
-		homeTable.getSortOrder().add(colHomeTime);
+		homeTable.getSortOrder().add(colHomeOrder);
     }
     
     /**
@@ -360,7 +387,7 @@ public class MainController implements Initializable {
     	
     	Date datetime = new Date();
     	SimpleDateFormat dateSDF = new SimpleDateFormat("M/d/yyyy");
-    	SimpleDateFormat timeSDF = new SimpleDateFormat("H:mm:ss a");
+    	SimpleDateFormat timeSDF = new SimpleDateFormat("h:mm:ss a");
     	
     	File newFile = new File("src\\library\\history.txt");
     	FileWriter writer = new FileWriter(newFile, true);
@@ -368,7 +395,7 @@ public class MainController implements Initializable {
     	writer.close();
     	
     	historyTable.setItems(getHistoryEntries());
-    	historyTable.getSortOrder().add(colHistoryDate);
+    	historyTable.getSortOrder().add(colHistoryOrder);
     
     }    
     
@@ -379,33 +406,9 @@ public class MainController implements Initializable {
         writer.close();
         
         historyTable.setItems(getHistoryEntries());
-        historyTable.getSortOrder().add(colHistoryDate);
+        historyTable.getSortOrder().add(colHistoryOrder);
     }
     
-    /**
-     * sets up colums for all 3 tables
-     */
-    private void setCellValueFactories() {
-    	colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
-		colHomeTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
-		colHomeDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
-		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
-		colHomeOrder.setCellValueFactory(new PropertyValueFactory<Medication, String>("order"));
-		colHomeOrder.setSortType(TableColumn.SortType.DESCENDING);	
-
-		
-		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
-		colMyName.setSortType(TableColumn.SortType.ASCENDING);
-		colMyDose.setCellValueFactory(new PropertyValueFactory<Medication, String>("dose"));
-		colMyTime.setCellValueFactory(new PropertyValueFactory<Medication, String>("time"));
-		colMyFrequency.setCellValueFactory(new PropertyValueFactory<Medication, String>("frequency"));
-		
-		colHistoryDate.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("date"));
-		colHistoryDate.setSortType(TableColumn.SortType.DESCENDING);
-		colHistoryTime.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("time"));
-		colHistoryName.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("name"));
-		colHistoryDose.setCellValueFactory(new PropertyValueFactory<HistoryEntry, String>("dose"));
-    }
 	
 }
 

@@ -1,1 +1,1 @@
-ok;1074;Tue;plpl;Taken
+Advil;1140;SunMonTueWedThuFriSat;200 mg;Taken

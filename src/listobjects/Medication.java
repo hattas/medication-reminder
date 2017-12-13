@@ -14,7 +14,6 @@ public class Medication {
 	private SimpleStringProperty dose = new SimpleStringProperty("");
 	private SimpleStringProperty status = new SimpleStringProperty("");
 	private int time = -1;	// time is in minutes. 122 = 2:02 AM
-	private SimpleStringProperty order = new SimpleStringProperty("");
 
 
 	public Medication() {
@@ -98,7 +97,12 @@ public class Medication {
 		return frequency.get();
 	}
 	
-	public String getOrder() {
-		return ""+time;
+	/**
+	 * Table uses this number to order the medications correctly.
+	 * Must order based on minutes, not based on string time for correct order.
+	 * @return time in minutes as integer
+	 */
+	public Integer getOrder() {
+		return time;
 	}
 }

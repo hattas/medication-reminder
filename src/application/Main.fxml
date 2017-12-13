@@ -14,6 +14,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
+      <Label alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="Made by John Hattas &amp; Nathan Lang" textAlignment="CENTER" AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="0.0">
+         <font>
+            <Font size="11" />
+         </font>
+      </Label>
       <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="160.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
@@ -38,7 +43,6 @@
                </stroke></Line>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" text="Settings" />
                   <Button mnemonicParsing="false" text="Help" />
                </children>
             </HBox>
@@ -69,7 +73,7 @@
                               <TableColumn fx:id="colHomeTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colHomeDose" minWidth="135" prefWidth="135" text="Dose" />
                               <TableColumn fx:id="colHomeStatus" minWidth="135" prefWidth="135" text="Status" />
-                              <TableColumn fx:id="colHomeOrder" minWidth="0" prefWidth="0" text="" />   
+                              <TableColumn fx:id="colHomeOrder" minWidth="0" prefWidth="0" text="Order" />   
                           </columns>
                         </TableView>
                      </children>
@@ -130,6 +134,7 @@
                             <TableColumn fx:id="colHistoryTime" minWidth="135" prefWidth="135" text="Time" />
                             <TableColumn fx:id="colHistoryName" minWidth="135" prefWidth="135" text="Name" />
                             <TableColumn fx:id="colHistoryDose" minWidth="135" prefWidth="135" text="Dose" />
+                            <TableColumn fx:id="colHistoryOrder" minWidth="0" prefWidth="0" text="Order" />
                           </columns>
                         </TableView>
                      </children>

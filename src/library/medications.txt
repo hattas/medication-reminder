@@ -1,2 +1,1 @@
-2;1127;SunMonTueWedThuFriSat;2;Taken
-1;1127;SunMonTueWedThuFriSat;1;Taken
+Advil;1140;SunMonTueWedThuFriSat;200 mg;Taken
