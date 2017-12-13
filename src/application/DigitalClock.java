@@ -1,5 +1,11 @@
 package application;
 
+/**
+ * Extension of label class that keeps track of time.
+ * Displays time like a digital clock and updates every second.
+ * Used on home screen.
+ */
+
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 

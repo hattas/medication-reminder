@@ -1,5 +1,10 @@
 package listobjects;
 
+/**
+ * Class for entries to be put in the history table.
+ * Simply contains getters and setters to add history entries and populate the table.
+ */
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class HistoryEntry {

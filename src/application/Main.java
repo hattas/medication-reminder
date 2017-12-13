@@ -1,5 +1,9 @@
 package application;
 
+/**
+ * Main class that starts the whole program by showing the main stage.
+ */
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;

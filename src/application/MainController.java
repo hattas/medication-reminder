@@ -1,5 +1,12 @@
 package application;
 
+/**
+ * Controller for the main application window.
+ * This class is where most backend activity takes place.
+ * Maintains medication and history lists/files and handles all button actions.
+ * Contains timer method for the alarm.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,21 +18,12 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
-import javax.swing.*;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- * in fxml file:
- * fx:id refers to the object, like newButton
- * onAction refers to the method that is called
- */
-	
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,15 +31,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Duration;
 import listobjects.HistoryEntry;
 import listobjects.Medication;
@@ -60,10 +55,9 @@ public class MainController implements Initializable {
     @FXML private TableView<Medication> homeTable, medicationTable;
     @FXML private TableView<HistoryEntry> historyTable;
     private Date todaysDate;
-
     
     /**
-     * initialize the controller class. runs when program starts
+     * Initialize the controller class. Runs when program starts. Sets up labels and tables.
      */
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -81,8 +75,9 @@ public class MainController implements Initializable {
 		AnchorPane.setRightAnchor(homeTimeLabel, 20.0);
 		homePane.getChildren().addAll(homeTimeLabel);
 		
-		setCellValueFactories();
+		setCellValueFactories(); // sets up columns of tables
 		
+		// populates tables from files
 		try {
 			homeTable.setItems(getTodaysMedications());
 			medicationTable.setItems(getMedications());
@@ -100,7 +95,9 @@ public class MainController implements Initializable {
 	}
 	
     /**
-     * sets up colums for all 3 tables
+     * Sets up columns for all 3 tables and sets sort order.
+     * The home table and history tables are sorded by "order" columns, which are not displayed to the user.
+     * The medications table is sorted alphabetically by name.
      */
     private void setCellValueFactories() {
     	colHomeName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
@@ -109,7 +106,6 @@ public class MainController implements Initializable {
 		colHomeStatus.setCellValueFactory(new PropertyValueFactory<Medication, String>("status"));
 		colHomeOrder.setCellValueFactory(new PropertyValueFactory<Medication, Integer>("order"));
 		colHomeOrder.setSortType(TableColumn.SortType.ASCENDING);	
-
 		
 		colMyName.setCellValueFactory(new PropertyValueFactory<Medication, String>("name"));
 		colMyName.setSortType(TableColumn.SortType.ASCENDING);
@@ -126,8 +122,9 @@ public class MainController implements Initializable {
     }
 	
 	/**
-	 * Timer that updates every second.  Every minute, the timer checks if it matches any of the medication times.
-	 * If the timer matches a medication time, it shows an alert for that medication.
+	 * Timer that updates every second.
+	 * Every minute, the timer checks if it matches any of the medication times.
+	 * If the timer matches a medication time, it shows an alert to take that medication.
 	 */
 	private void startTimer(){
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), a -> {
@@ -137,6 +134,7 @@ public class MainController implements Initializable {
 				ObservableList<Medication> allMedications;
 		    	allMedications = medicationTable.getItems();
 				for (Medication medication : allMedications) {
+					// if medication is not taken and matches the current time, then show alert.
 					if (!medication.getStatus().equals("Taken") && calMinutes == medication.getTimeInMinutes()) {
 						FXMLLoader loader = new FXMLLoader();
 				    	loader.setLocation(getClass().getResource("Alarm.fxml"));    
@@ -159,24 +157,25 @@ public class MainController implements Initializable {
 					    
 					    stage.show();
 					    
+					    // When application is closed, if the take button was clicked, medication is marked as taken and added to history.
 					    stage.setOnHidden(event -> {
 						    if (display.takeButtonIsClicked()) {
 						    	allMedications.remove(medication);
 						    	medication.setStatus("Taken");
 						    	allMedications.add(medication);
-						    }
-					    	
-						    try {
-						    rewriteMedications(allMedications);
-						    addHistoryEntry(medication);
-						    
-					    	medicationTable.setItems(getMedications());
-							medicationTable.getSortOrder().add(colMyName);
-							
-					    	homeTable.setItems(getTodaysMedications());
-					    	homeTable.getSortOrder().add(colHomeOrder);
-						    } catch (IOException e) {
-						    	e.printStackTrace();
+						    	
+							    try {
+								    rewriteMedications(allMedications);
+								    addHistoryEntry(medication);
+								    
+							    	medicationTable.setItems(getMedications());
+									medicationTable.getSortOrder().add(colMyName);
+									
+							    	homeTable.setItems(getTodaysMedications());
+							    	homeTable.getSortOrder().add(colHomeOrder);
+							    } catch (IOException e) {
+							    	e.printStackTrace();
+							    }
 						    }
 					    });
 					}
@@ -189,8 +188,9 @@ public class MainController implements Initializable {
 
 	/**
      * Creates list of medications to take today on the home list.
-     * Only adds medications whos frequency contains todays day ("Wed")
+     * Only adds medications whose frequency contains todays day (ex. "Wed")
      * @throws FileNotFoundException 
+     * @return List of Medications
      */
     private ObservableList<Medication> getTodaysMedications() throws FileNotFoundException {
     	ObservableList<Medication> todaysMedications = FXCollections.observableArrayList();
@@ -202,6 +202,7 @@ public class MainController implements Initializable {
     }
     
     /** 
+     * Creates list of medications to display in the medication table.
      * @return List of medications for My Medications page from file.
      * @throws FileNotFoundException 
      */
@@ -217,8 +218,7 @@ public class MainController implements Initializable {
     }
     
     /***
-     * 
-     * @return list of history from history file
+     * @return List of history entries from history file
      * @throws FileNotFoundException
      */
     private ObservableList<HistoryEntry> getHistoryEntries() throws FileNotFoundException { 
@@ -233,7 +233,8 @@ public class MainController implements Initializable {
     }
   
     /**
-     * set satus of the medication to taken
+     * Event triggered when user clicks "Take" button on the home page.
+     * Sets status of the medication to taken and adds a history entry.
 	 * @throws IOException 
      */
     @FXML
@@ -260,7 +261,8 @@ public class MainController implements Initializable {
     }
     
 	/**
-     * creates pop up to add new medication!
+	 * Event triggered when user clicks "New" button on the medication page.
+     * Creates pop up to add a new medication
 	 * @throws IOException 
      */
     @FXML
@@ -298,7 +300,9 @@ public class MainController implements Initializable {
     }    
 
 	/**
-     * creates pop up to edit existing medication!
+	 * Event triggered when user clicks "Edit" button on the medication page.
+     * Creates pop up to edit existing medication
+     * Pop up autofills fields with medication details so user can edit them.
 	 * @throws IOException 
      */
     @FXML
@@ -353,7 +357,8 @@ public class MainController implements Initializable {
     }
  
     /**
-     * allows medications to be deleted.
+     * Event triggered when user clicks "Delete" button on the medication page.
+     * Removes the selected medication from the List and file.
      * @throws IOException
      */
     @FXML
@@ -370,7 +375,23 @@ public class MainController implements Initializable {
     }
     
     /**
-     * rewrites medication file based on medicatin list as input.
+     * Event triggered when user clicks "Clear History" button on the history page.
+     * Rewrites history file with a blank file and clears the table.
+     * @throws IOException
+     */
+    @FXML
+    public void clearButtonClick() throws IOException {
+    	File newFile = new File("src\\library\\history.txt");
+    	FileWriter writer = new FileWriter(newFile, false);
+        writer.close();
+        
+        historyTable.setItems(getHistoryEntries());
+        historyTable.getSortOrder().add(colHistoryOrder);
+    }
+     
+    /**
+     * Rewrites the medication file based on a medicatin list as input.
+     * Used to ensure data is stored while program is not running.
      * @param allMedications
      * @throws IOException
      */
@@ -383,6 +404,12 @@ public class MainController implements Initializable {
     	writer.close();
 	}
     
+    /**
+     * Method called when a medication is taken.
+     * Medicaiton is timestamped and added to the history list and file.
+     * @param med
+     * @throws IOException
+     */
     private void addHistoryEntry(Medication med) throws IOException {
     	
     	Date datetime = new Date();
@@ -398,17 +425,6 @@ public class MainController implements Initializable {
     	historyTable.getSortOrder().add(colHistoryOrder);
     
     }    
-    
-    @FXML
-    public void clearButtonClick() throws IOException {
-    	File newFile = new File("src\\library\\history.txt");
-    	FileWriter writer = new FileWriter(newFile, false);
-        writer.close();
-        
-        historyTable.setItems(getHistoryEntries());
-        historyTable.getSortOrder().add(colHistoryOrder);
-    }
-    
 	
 }
 

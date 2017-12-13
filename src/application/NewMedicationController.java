@@ -1,12 +1,16 @@
 package application;
 
+/**
+ * Controller for the New Medication window.
+ * Contains all methods for handling the actions of the elements in the window.
+ * Purpose of class is to return a new user made medication to MainController.
+ */
+
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,11 +34,15 @@ public class NewMedicationController implements Initializable{
 
 	boolean addButtonClicked = false; // boolean value for whether the 'add' button is clicked
 	
+	/**
+	 * Method that runs when window starts.  Time fields are automatically set to current time for convenience.
+	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		label.setVisible(false);
+		label.setVisible(false); // label is used to prompt user to fill in fields if needed
 		
+		// populate drop down menus for the time
 		hourComboBox.setItems(FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12"));
 		hourComboBox.getSelectionModel().select(LocalTime.now().format(DateTimeFormatter.ofPattern("h")));
 		hourComboBox.setTooltip(new Tooltip("Hour"));
@@ -48,6 +56,7 @@ public class NewMedicationController implements Initializable{
 		minuteComboBox.getSelectionModel().select(LocalTime.now().format(DateTimeFormatter.ofPattern("mm")));
 		minuteComboBox.setTooltip(new Tooltip("Minutes"));
 		
+		// set up AM and PM radio buttons
 		ToggleGroup group=new ToggleGroup();
 		amButton.setToggleGroup(group);
 		pmButton.setToggleGroup(group);
@@ -61,8 +70,8 @@ public class NewMedicationController implements Initializable{
 	}
 	
 	/**
-	 * Used by the main controller to get the medicaiton that was just added by the user, after the program is closed.
-	 * @return
+	 * Used by the main controller to get the medication object that was just added by the user, after the program is closed.
+	 * @return Medication created from the popup fields.
 	 */
     public Medication getMedication() {
     	// public Medication(String name, String time, String frequency, String dose, String status) {
@@ -71,7 +80,7 @@ public class NewMedicationController implements Initializable{
     }
 	  
     /**
-     * used by the MainController only
+     * Used by the MainController only
      * @return whether the add button was clicked upon close or not.
      */
 	public boolean addButtonIsClicked() {
@@ -79,8 +88,8 @@ public class NewMedicationController implements Initializable{
     }
     
     /**
-     * checks to make sure fields are filled out properly so user can't break the program.
-     * if everything is, boolean is set to true to tell MainController that the add button was clicked upon close.
+     * Checks to make sure fields are filled out properly so user can't break the program.
+     * If everything is, boolean is set to true to tell MainController that the add button was clicked upon close.
      */
 	@FXML
 	private void addButtonClick() {
@@ -104,7 +113,7 @@ public class NewMedicationController implements Initializable{
 	}
 	
 	/**
-	 * exits out of popup without adding the med (same as pressing X to close)
+	 * Exits out of popup without adding the med (same as pressing X to close)
 	 */
 	@FXML
 	private void cancelButtonClick() {
@@ -114,7 +123,7 @@ public class NewMedicationController implements Initializable{
 	}
 	
 	/**
-	 * selects all days of the week radio buttons
+	 * Selects all day of the week radio buttons
 	 */
 	@FXML
 	private void selectAllButtonClick() {
@@ -128,8 +137,7 @@ public class NewMedicationController implements Initializable{
 	}
 	
 	/**
-	 * 
-	 * @return converts the days selected into a string with all days as 3 letters each
+	 * @return days selected converted into a string with all days as 3 letters each ("Sun")
 	 */
 	private String getFrequency() {
 		String string = new String();
@@ -144,8 +152,7 @@ public class NewMedicationController implements Initializable{
 	}
 	
 	/**
-	 * 
-	 * @return makes sure that at least one day is selected
+	 * @return weather at least one day button is clicked or not
 	 */
 	private boolean dayIsPicked() {
 		if (    sunday.isSelected() ||

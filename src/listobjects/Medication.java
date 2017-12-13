@@ -1,11 +1,11 @@
 package listobjects;
 
-import javafx.beans.property.SimpleStringProperty;
-
 /**
- * when user adds a medication, instance of this class will be created
- * to store the info
+ * Class to store data about a medication.
+ * Contains getters and setters to add medications and populate the medication tables.
  */
+
+import javafx.beans.property.SimpleStringProperty;
 
 public class Medication {
 	
@@ -14,7 +14,6 @@ public class Medication {
 	private SimpleStringProperty dose = new SimpleStringProperty("");
 	private SimpleStringProperty status = new SimpleStringProperty("");
 	private int time = -1;	// time is in minutes. 122 = 2:02 AM
-
 
 	public Medication() {
 		this("",0,"","","");
@@ -37,7 +36,7 @@ public class Medication {
 		this.name.set(name);
 	}
 	
-	// converts time in mins to a displayable digital time.
+	// converts time in minutes to a digital time.
 	public String getTime() {
 		int totalMinutes = time % 1440;
 		int hours    = (totalMinutes / 60) % 12;
@@ -82,6 +81,7 @@ public class Medication {
 		this.frequency.set(frequency);
 	}
 	
+	// "Taken" or "Not Taken"
 	public String getStatus() {
 		return status.get();
 	}
@@ -89,10 +89,12 @@ public class Medication {
 		this.status.set(status);
 	}
 	
+	// returns time in minutes instead of digital time string
 	public int getTimeInMinutes() {
 		return time;
 	}
 	
+	// returns raw string of days of the week to take med
 	public String getDays() {
 		return frequency.get();
 	}
@@ -100,7 +102,6 @@ public class Medication {
 	/**
 	 * Table uses this number to order the medications correctly.
 	 * Must order based on minutes, not based on string time for correct order.
-	 * @return time in minutes as integer
 	 */
 	public Integer getOrder() {
 		return time;
