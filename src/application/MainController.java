@@ -91,6 +91,10 @@ public class MainController implements Initializable {
 		System.out.println("Done initializing.");
 	}
 	
+	/**
+	 * Timer that updates every second.  Every minute, the timer checks if it matches any of the medication times.
+	 * If the timer matches a medication time, it shows an alert for that medication.
+	 */
 	private void startTimer(){
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000), a -> {
 			Calendar cal = Calendar.getInstance();
@@ -99,7 +103,7 @@ public class MainController implements Initializable {
 				ObservableList<Medication> allMedications;
 		    	allMedications = medicationTable.getItems();
 				for (Medication medication : allMedications) {
-					if (/*!medication.getStatus().equals("Taken") && */calMinutes == medication.getTimeInMinutes()) {
+					if (!medication.getStatus().equals("Taken") && calMinutes == medication.getTimeInMinutes()) {
 						FXMLLoader loader = new FXMLLoader();
 				    	loader.setLocation(getClass().getResource("Alarm.fxml"));    
 					    try {
@@ -109,7 +113,6 @@ public class MainController implements Initializable {
 						}
 					    
 					    AlarmController display = loader.getController();
-					    System.out.println("displaying window....");	//TODO delete
 					    Parent parent = loader.getRoot();
 					    Stage stage = new Stage();
 					    Scene scene = new Scene(parent);
@@ -117,8 +120,8 @@ public class MainController implements Initializable {
 					    stage.setTitle("Medication Alert");
 					    stage.setScene(scene);
 					    stage.initModality(Modality.APPLICATION_MODAL);
-					    display.setAlarmDose(medication.getDose());
-					    display.setAlarmName(medication.getName());
+					    display.setAlarmDose("Time to take " + medication.getDose());
+					    display.setAlarmName("Dose: " + medication.getName());
 					    
 					    stage.show();
 					    

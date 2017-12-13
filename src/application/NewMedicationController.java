@@ -1,6 +1,8 @@
 package application;
 
 import java.net.URL;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -30,15 +32,11 @@ public class NewMedicationController implements Initializable{
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ToggleGroup group=new ToggleGroup();
-		amButton.setToggleGroup(group);
-		pmButton.setToggleGroup(group);
-		amButton.setSelected(true);
 		
 		label.setVisible(false);
 		
 		hourComboBox.setItems(FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12"));
-		hourComboBox.getSelectionModel().selectFirst();
+		hourComboBox.getSelectionModel().select(LocalTime.now().format(DateTimeFormatter.ofPattern("h")));
 		hourComboBox.setTooltip(new Tooltip("Hour"));
 		
 		minuteComboBox.setItems(FXCollections.observableArrayList("00","01","02","03","04","05","06","07","08","09",//TODO
@@ -47,8 +45,19 @@ public class NewMedicationController implements Initializable{
 																  "30","31","32","33","34","35","36","37","38","39",
 																  "40","41","42","43","44","45","46","47","48","49",
 																  "50","51","52","53","54","55","56","57","58","59"));
-		minuteComboBox.getSelectionModel().selectFirst();
+		minuteComboBox.getSelectionModel().select(LocalTime.now().format(DateTimeFormatter.ofPattern("mm")));
 		minuteComboBox.setTooltip(new Tooltip("Minutes"));
+		
+		ToggleGroup group=new ToggleGroup();
+		amButton.setToggleGroup(group);
+		pmButton.setToggleGroup(group);
+		
+		String amOrPm = LocalTime.now().format(DateTimeFormatter.ofPattern("a"));
+		System.out.println(amOrPm);
+		if (amOrPm.equals("AM"))
+			amButton.setSelected(true);
+		else
+			pmButton.setSelected(true);
 
 	}
 	
