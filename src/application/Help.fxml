@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-         	<!-- &#10; for newline -->
             <Label text="Home" id="help-header" />
             <Label text="Your medications to take today will be shown here.&#10;Select a medication and click take to mark as taken.&#10;At the time to take the medication, you will receive&#10;an alert if the medication isn't taken yet." id="help-text"/>
-            <Label text="My Medications" id="help-header"/>
+            <Line endX="300.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#303030" />
+                        <Stop color="#a0a0a0" offset=".5" />
+                        <Stop color="#303030" offset="1" />
+                     </stops>
+                  </LinearGradient>
+               </stroke></Line>
+            <Label text="My Medications" id="help-header" />
             <Label text="All your medications are shown here. Click new to add&#10;a new medication, edit to edit a current medication,&#10;and delete to delete a medication." id="help-text"/>
-            <Label text="History" id="help-header"/>
-            <Label text="When you take a medication, it will be logged in the&#10;history page. They are shown with the most recent taking&#10;first. Click clear to remove all history data." id="help-text"/>
+            <Line endX="300.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#303030" />
+                        <Stop color="#a0a0a0" offset=".5" />
+                        <Stop color="#303030" offset="1" />
+                     </stops>
+                  </LinearGradient>
+               </stroke></Line>
+            <Label text="History" id="help-header" />
+            <Label text="When you take a medication, it will be logged in the&#10;history page. They are shown with the most recent&#10;first. Click clear to remove all history data." id="help-text"/>
          </children>
       </VBox>
    </children>
