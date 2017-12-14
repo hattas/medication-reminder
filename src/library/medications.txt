@@ -1,2 +1,3 @@
-Tylenol;1407;SunMonTueWedThuFriSat;200 mg;Taken
-Advil;1411;TueThu;100 mg;Taken
+Tylenol;1244;Wed;100;Not Taken
+Tylenol;1407;SunMonTueWedThuFriSat;200 mg;Not Taken
+Ibuprofen;1192;MonWedFri;200 mg;Not Taken

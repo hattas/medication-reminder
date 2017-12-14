@@ -152,8 +152,8 @@ public class MainController implements Initializable {
 					    stage.setTitle("Medication Alert");
 					    stage.setScene(scene);
 					    stage.initModality(Modality.APPLICATION_MODAL);
-					    display.setAlarmDose("Time to take " + medication.getDose());
-					    display.setAlarmName("Dose: " + medication.getName());
+					    display.setAlarmName("Time to take " + medication.getName());
+					    display.setAlarmDose("Dose: " + medication.getDose());
 					    
 					    stage.show();
 					    

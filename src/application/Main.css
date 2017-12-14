@@ -7,7 +7,7 @@
  *****************/
 .root{
 	-fx-background-color: #303030;
-	-fx-font-size: 13pt;
+	-fx-font-size: 13pt;	
 }
 .button{
 	-fx-text-fill: #ffffff;

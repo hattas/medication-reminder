@@ -104,7 +104,7 @@
                               <TableColumn fx:id="colMyName" minWidth="135" prefWidth="135" text="Name" />
                               <TableColumn fx:id="colMyTime" minWidth="135" prefWidth="135" text="Time" />
                               <TableColumn fx:id="colMyDose" minWidth="135" prefWidth="135" text="Dose" />
-                              <TableColumn fx:id="colMyFrequency" minWidth="135" prefWidth="135" text="Frequency" />
+                              <TableColumn fx:id="colMyFrequency" minWidth="135" prefWidth="135" text="Days" />
                            </columns>
                         </TableView>
                      </children>
