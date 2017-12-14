@@ -1,1 +1,2 @@
-f;1317;SunMonTueWedThuFriSat;f;Taken
+Tylenol;1407;SunMonTueWedThuFriSat;200 mg;Taken
+Advil;1411;TueThu;100 mg;Taken

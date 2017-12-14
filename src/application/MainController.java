@@ -44,7 +44,7 @@ import listobjects.Medication;
 public class MainController implements Initializable {
 
     @FXML private Label homeTimeLabel, homeDateLabel;
-    @FXML private Button newButton, editButton, deleteButton;  
+    @FXML private Button helpButton, newButton, editButton, deleteButton;  
     // prefix "col" means column
     @FXML private TableColumn<Medication, String> colHomeTime, colHomeName, colHomeDose, colHomeStatus;
     @FXML private TableColumn<Medication, Integer> colHomeOrder;
@@ -65,7 +65,7 @@ public class MainController implements Initializable {
 		
 		// set up labels to show the date and time.
 		todaysDate = new Date();
-		SimpleDateFormat dateSDF = new SimpleDateFormat("EEEE, MMMM d");
+		SimpleDateFormat dateSDF = new SimpleDateFormat("EEE, MMMM d");
 		homeDateLabel.setText(dateSDF.format(todaysDate));
 		DigitalClock homeTimeLabel = new DigitalClock();
 		homeTimeLabel.setStyle("-fx-font-size: 32pt;");
@@ -389,6 +389,20 @@ public class MainController implements Initializable {
         historyTable.getSortOrder().add(colHistoryOrder);
     }
      
+    public void helpButtonClick() throws IOException {
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("Help.fxml"));    
+	    loader.load();	    
+	    Parent parent = loader.getRoot();
+	    Stage stage = new Stage();
+	    Scene scene = new Scene(parent);
+	    scene.getStylesheets().add("application/Main.css");
+	    stage.setTitle("Help");
+	    stage.setScene(scene);
+	    stage.initModality(Modality.APPLICATION_MODAL);
+	    stage.showAndWait();
+    }
+    
     /**
      * Rewrites the medication file based on a medicatin list as input.
      * Used to ensure data is stored while program is not running.

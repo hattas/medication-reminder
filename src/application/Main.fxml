@@ -43,7 +43,7 @@
                </stroke></Line>
             <HBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                <children>
-                  <Button mnemonicParsing="false" text="Help" />
+                  <Button fx:id="helpButton" mnemonicParsing="false" text="Help" onAction="#helpButtonClick" />
                </children>
             </HBox>
          </children>
